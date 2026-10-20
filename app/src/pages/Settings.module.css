@@ -1,0 +1,65 @@
+.wrap {
+  display: grid;
+  gap: var(--space-4);
+  max-width: 36rem;
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.heading h1 {
+  font-size: 2rem;
+}
+
+.note {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--check-bg);
+  color: var(--check);
+  font-weight: 600;
+}
+
+.form {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.error {
+  margin: 0;
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.saved {
+  color: var(--ok);
+  font-weight: 600;
+}
+
+.account {
+  display: grid;
+  gap: var(--space-2);
+  justify-items: start;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line);
+}
+
+.account h2 {
+  font-size: 1.25rem;
+}
+
+.account p {
+  margin: 0;
+  color: var(--ink-2);
+  overflow-wrap: anywhere;
+}

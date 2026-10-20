@@ -26,7 +26,7 @@ function Rows({ title, hint, rows, onChange, blank, children }) {
 }
 
 export default function Rates() {
-  const { rateCard, maker, reload } = useStudio();
+  const { rateCard, reload } = useStudio();
   const [form, setForm] = useState(null);
   const [errors, setErrors] = useState([]);
   const [saved, setSaved] = useState(false);
@@ -149,9 +149,6 @@ export default function Rates() {
           <Field label="Deposit %"><input inputMode="numeric" value={form.depositPercent} onChange={(e) => patch({ depositPercent: e.target.value })} /></Field>
           <Field label="Minimum notice (days)"><input inputMode="numeric" value={form.leadDays} onChange={(e) => patch({ leadDays: e.target.value })} /></Field>
         </div>
-        {maker && maker.deposit_percent !== undefined && Number(form.depositPercent) !== maker.deposit_percent && (
-          <p className={styles.hint}>Orders use the deposit set in Settings ({maker.deposit_percent}%). Keep the two the same.</p>
-        )}
       </fieldset>
 
       {errors.length > 0 && (

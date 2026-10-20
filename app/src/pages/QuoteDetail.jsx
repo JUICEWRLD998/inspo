@@ -61,7 +61,8 @@ export default function QuoteDetail({ quote: initial, customer, onChanged }) {
     [initial, rateCard],
   );
   const brand = maker?.brand ?? "the studio";
-  const depositPercent = maker?.deposit_percent ?? 0;
+  // One source of truth for the deposit: the rate card, the same one the agent and the pricing engine use.
+  const depositPercent = rateCard?.deposit_percent ?? 0;
   const message = customerMessage(quote, { brand, depositPercent, paymentNote: maker?.bank_or_payment_note });
   const link = waLink(customer?.whatsapp_id, message);
 
