@@ -13,5 +13,11 @@
     "bank_or_payment_note": { "type": "string" },
     "data_origin": { "type": "string", "enum": ["real", "sample"], "description": "sample = invented for testing, never shown as a real business" }
   },
-  "required": ["name", "brand", "currency", "lead_time_days"]
+  "required": ["name", "brand", "currency", "lead_time_days"],
+  "rls": {
+    "create": {"user_condition": {"role": "admin"}},
+    "read": true,
+    "update": {"user_condition": {"role": "admin"}},
+    "delete": {"user_condition": {"role": "admin"}}
+  }
 }

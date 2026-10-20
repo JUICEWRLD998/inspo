@@ -27,9 +27,17 @@
     },
     "event_date": { "type": "string", "format": "date-time" },
     "servings": { "type": "integer" },
+    "flavour": { "type": ["string", "null"], "description": "Flavour key as priced" },
+    "delivery": { "type": ["string", "boolean", "null"], "description": "Delivery zone key, or false/null for pickup" },
     "edit_log": { "type": "array", "items": { "type": "object" }, "description": "Maker edits before approval" },
     "answered_at": { "type": "string", "format": "date-time" },
     "approved_at": { "type": "string", "format": "date-time" }
   },
-  "required": ["status"]
+  "required": ["status"],
+  "rls": {
+    "create": {"user_condition": {"role": "admin"}},
+    "read": {"user_condition": {"role": "admin"}},
+    "update": {"user_condition": {"role": "admin"}},
+    "delete": {"user_condition": {"role": "admin"}}
+  }
 }

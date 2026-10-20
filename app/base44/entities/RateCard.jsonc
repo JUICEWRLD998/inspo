@@ -47,5 +47,11 @@
     "deposit_percent": { "type": "integer" },
     "data_origin": { "type": "string", "enum": ["real", "sample"], "description": "sample = invented for testing" }
   },
-  "required": ["maker_id", "currency", "tier_prices"]
+  "required": ["maker_id", "currency", "tier_prices"],
+  "rls": {
+    "create": {"user_condition": {"role": "admin"}},
+    "read": true,
+    "update": {"user_condition": {"role": "admin"}},
+    "delete": {"user_condition": {"role": "admin"}}
+  }
 }
