@@ -1,0 +1,58 @@
+/* Design tokens for the maker console. OKLCH, derived from the cakes themselves:
+   buttercream paper, cocoa ink, one raspberry accent (the CTA colour), pistachio for "ok",
+   caramel for "check this". Contrast pairs are measured in eval/contrast.mjs, not eyeballed. */
+:root {
+  --paper: oklch(97.5% 0.012 85);
+  --paper-2: oklch(94.5% 0.02 80);
+  --card: oklch(99.2% 0.005 85);
+  --ink: oklch(25% 0.03 40);
+  --ink-2: oklch(42% 0.03 45);
+  --line: oklch(88% 0.02 75);
+
+  --accent: oklch(50% 0.17 12);
+  --accent-hover: oklch(44% 0.17 12);
+  --on-accent: oklch(99% 0.005 85);
+
+  --ok: oklch(42% 0.09 150);
+  --ok-bg: oklch(94% 0.05 150);
+  --check: oklch(40% 0.09 70);
+  --check-bg: oklch(94% 0.07 85);
+  --danger: oklch(46% 0.17 28);
+
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2.5rem;
+
+  --radius: 0.75rem;
+  --radius-sm: 0.5rem;
+  --shadow: 0 1px 2px oklch(25% 0.03 40 / 0.08), 0 6px 18px oklch(25% 0.03 40 / 0.06);
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --tap: 2.75rem;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: oklch(20% 0.02 45);
+    --paper-2: oklch(24% 0.025 45);
+    --card: oklch(27% 0.025 45);
+    --ink: oklch(95% 0.012 85);
+    --ink-2: oklch(76% 0.025 80);
+    --line: oklch(36% 0.025 45);
+    --accent: oklch(72% 0.14 12);
+    --accent-hover: oklch(78% 0.13 12);
+    --on-accent: oklch(20% 0.02 45);
+    --ok: oklch(80% 0.1 150);
+    --ok-bg: oklch(30% 0.05 150);
+    --check: oklch(84% 0.1 85);
+    --check-bg: oklch(32% 0.06 80);
+    --danger: oklch(76% 0.13 28);
+  }
+}
