@@ -17,7 +17,7 @@ maker's own rate card. She approves with one tap, and the order lands on her bak
 | Entities: Maker, RateCard, Customer, Quote, Order | LIVE |
 | WhatsApp desk (app agent) | LIVE for one test conversation: photo to pending quote works; customer record NOT created |
 | Maker console (`/desk`, `/orders`, `/rates`, `/settings`) | LIVE, owner sign-in only. Verified in a browser against the local backend; not yet exercised signed in on the live URL |
-| Automations (alerts, reminders) | NEXT (P5, as Workflows) |
+| Reminders and alerts | LIVE as a Today screen (one tap each) and an opt-in new-quote email. NOT scheduled: Workflows needs a paid Base44 plan |
 | Public site in the maker's brand | NOT LIVE (`/` goes to the maker sign-in) |
 | Pricing eval | LIVE on SAMPLE data only (11/15 exact; circular, not accuracy). Real-orders eval NEXT |
 
@@ -29,7 +29,7 @@ maker's own rate card. She approves with one tap, and the order lands on her bak
 cd app && npm install && npm test
 node eval/run.mjs                        # 15 sample orders through the pricing engine (see eval/README.md)
 node eval/contrast.mjs                   # WCAG ratios for every colour pair, both schemes
-node eval/anon-access.mjs <url> <appId>  # an anonymous visitor must not read quotes, customers or orders        # 64 tests: pricing, the sample rate card, extraction, quote editing and approval, money, rates form, calendar
+node eval/anon-access.mjs <url> <appId>  # an anonymous visitor must not read quotes, customers or orders        # 78 tests: pricing, the sample rate card, extraction, quote editing and approval, money, rates form, calendar, reminders
 ```
 
 Pricing contract, from `app/tests/pricing.test.js`: every amount is a positive integer; the line items sum to the

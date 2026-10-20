@@ -3,6 +3,54 @@
 Newest first. Each entry: what was measured, what was rejected, where the evidence is. Tags: VERIFIED (doc URL, file
 or live response) or UNVERIFIED. Corrections are made in place and marked CORRECTION.
 
+## 2026-10-20 · P5 automations, and a UI review pass (Mustapha Fadhlullah — independent security researcher)
+
+**Exit check as planned ("`base44 logs` shows each automation firing once"): NOT POSSIBLE, and the reason is the
+finding.** Workflows is **Builder plan and above**; the Free plan cannot create or run them
+(https://docs.base44.com/Building-your-app/Creating-workflows, Warning at the top). Function automations
+(`function.jsonc`) are disabled for this app (HTTP 409 `workflows_enabled`, found earlier). So on the free plan
+there is **no way to schedule anything or trigger on a data change.** He said no plan upgrade, so P5 changed shape.
+The rubric word "automation" is therefore only partly met, and I will not describe it as more than it is.
+
+**What was built instead (each real, none faked):**
+1. **Today screen** (`/today`, now the landing route). `src/lib/reminders.js` works out what is due from the
+   records, and the maker sends each with one tap (`wa.me` link with the message filled in), copies it, or marks it
+   sent. Rules: deposit unpaid and the order is 24 h old (not repeated within 24 h, not for past pickups); pickup
+   tomorrow (carries the balance, or the whole total plus a deposit chase if the deposit is unpaid); a pending quote
+   older than 24 h (links to the quote). "Sent" is saved on `Order.reminders_sent`, so a reload does not offer it
+   again. The page says plainly that sending is by her, one tap, and that scheduled sending needs a paid plan.
+2. **New-quote email alert**, inside `saveQuote` (no automation needed): opt-in through `Maker.notify_email`
+   (Settings), off by default because each email uses an integration credit. VERIFIED on production: the call
+   returned `alerted: true` (one real email to his address, one integration credit). Locally `SendEmail` is not
+   supported and the quote still saved with `alerted: false`, so a failed email cannot lose a quote.
+3. **Order confirmation to the customer:** unchanged from P4; approving shows the message and a send link. Spike C
+   (can a function message a customer first?) is still not tested. The docs say people must message first and a
+   24-hour window applies, so I am not building on it.
+- The reminder logic is pure and clock-free. If a paid plan or the coupon later unlocks Workflows, a scheduled
+  workflow can call the same rules.
+
+**Verification (VERIFIED, `eval/browser/today.mjs`, part of `run-all.sh`):** planted control first (with the real
+clock nothing is due, so the list is not always full), then the browser clock is moved two days ahead with
+Playwright's `page.clock`: pickup, deposit and the waiting quote appear; the pickup message shows the balance
+(49,000 - 34,300 = 14,700); the deposit message shows 34,300; "mark as sent" and tapping Send both save to the order;
+a reload does not bring them back. 78 unit tests.
+- **Mistakes of mine, corrected in place:** (a) my first reminder test said the balance was ₦15,700; the sum is
+  ₦14,700. (b) the first browser run failed twice because my checks were wrong (the Desk step had already approved a
+  quote, and `innerText` returns the CSS-uppercased heading), not because the app was; the checks now read counts
+  from the API and match case-insensitively.
+
+**UI review pass (looked at screenshots at 390, 768, 1280, 1920 and in dark):**
+- Today: kind was repeated in title and badge, the "See the message" disclosure had no marker, and three buttons
+  wrapped unevenly. Now: title is the customer, the badge names the kind, a chevron marks the disclosure, the main
+  action is full width with two quiet ones beneath.
+- Prices had no currency symbol anywhere. Now every price input and label carries it (`currencySymbol`, tested).
+- Rates was very long on a phone (4930 px). Two-field rows now sit beside a small remove button (4254 px).
+- A "missing" Settings field in a full-page screenshot was the sticky header painted over it, not a bug (the input
+  exists with its value and a 44 px box). Fixed bars mid-page in full-page captures are likewise capture artefacts.
+
+**Still open:** a WhatsApp run on the new `saveQuote` flow (credits); old test Quote(s) and the Customer from his
+phone are still in production data; `/` is the maker sign-in until P6.
+
 ## 2026-10-20 · P4 maker console (Mustapha Fadhlullah — independent security researcher)
 
 **Exit check (P4: approve a pending quote on a phone viewport and see the Order on the calendar): PASSED against the
