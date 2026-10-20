@@ -50,14 +50,14 @@ describe("pickup reminders", () => {
     const [r] = dueReminders({ ...ctx, orders: [order({ ...tomorrow, deposit_status: "paid_confirmed_by_maker" })], quotes: [], now: NOW });
     expect(r).toMatchObject({ kind: "pickup", id: "pickup:o1" });
     expect(r.message).toContain("tomorrow");
-    expect(r.message).toContain("₦15,700"); // 49,000 - 34,300
+    expect(r.message).toContain("₦14,700"); // 49,000 - 34,300 (CORRECTION: the first draft of this test said 15,700)
   });
 
   it("when the deposit is still unpaid it asks for the deposit as well, not a made-up balance", () => {
     const rs = dueReminders({ ...ctx, orders: [order(tomorrow)], quotes: [], now: NOW });
     expect(rs.map((r) => r.kind)).toEqual(["pickup", "deposit"]);
     expect(rs[0].message).toContain("₦49,000");
-    expect(rs[0].message).not.toContain("₦15,700");
+    expect(rs[0].message).not.toContain("₦14,700");
   });
 
   it("is not sent for any other day, nor twice", () => {
