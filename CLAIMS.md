@@ -10,4 +10,6 @@ Each README claim, and the command that reproduces it.
 | Five entities exist on the deployed app | `cd app && npx base44@latest entities push -y` lists them (Created on first run) |
 | Two functions are deployed | `cd app && npx base44@latest functions list` |
 
-Not claimed yet: extraction accuracy on cakes, price error against her real orders, any WhatsApp behaviour.
+| The engine reproduces the sample price list (11 of 15 sample orders exact, worst 10%); sample data, circular, not accuracy | `node eval/run.mjs` |
+
+Not claimed yet: accuracy against a real baker's orders, extraction accuracy on cakes, price error against her real orders, any WhatsApp behaviour.

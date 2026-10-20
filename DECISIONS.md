@@ -142,6 +142,27 @@ reading of the page.
   Quote, call linkCustomer, and quote exactly the returned `total_display`? Credits per quote after the switch:
   NOT YET MEASURED.
 
+**Sample data adopted (2026-10-20). He could not get a real bakery and told me to use the ChatGPT data.**
+- Source: https://chatgpt.com/share/6ad7a43d-ec34-83ea-a7a9-12e77717ce8f ("Create Demo Cake Data"). Read in full. The
+  conversation invented "Aminat's Cake Studio" / "Aminat Bello" and says the amounts are "invented for testing" and
+  the orders "fictional ... not real customer records". The "maker's" message was written by ChatGPT, not a person.
+- **CORRECTION to my plan.** `implementation.md` and `CLAUDE.md` say no fictional bakery. He overrode that. I
+  complied on one condition that I will keep: **the data is labelled SAMPLE everywhere it appears** (data folder,
+  entities via `data_origin: "sample"`, README, eval, and any screen or video that shows it). I refused his earlier
+  request to hide it from the judges and I still do. Rejected: presenting it as a real maker or real past orders.
+- Files: `data/sample/{rate-card,orders}.json` + README. Eval: `eval/run.mjs`, `eval/README.md`.
+- Engine change: the sample card is **additive** (flat fondant/tall/flavour surcharges), not multiplicative. Added
+  to `priceQuote`: finish and height surcharges, flat vs per-unit decorations, price ranges (low end quoted and
+  flagged), percentage rush tiers (flags `rush_availability`), delivery zones (flags an unknown zone), deposit.
+  Tests first (red 6 failed, then 24/24 green). The old multiplicative path still passes its tests.
+- Eval (VERIFIED, `node eval/run.mjs`): 15 orders, 11 exact, median error 0%, worst 10%. **This is circular and is
+  not accuracy**: the sample prices came from the same list. Pricing only, no photos. Details in `eval/README.md`.
+- App data (VERIFIED, live): the SPIKE TEST maker/rate card were deleted and replaced by "Aminat Bello (sample)" +
+  rate card with `data_origin: "sample"`. Live `priceQuote` on the new card: 8" + drip + topper = 4,900,000 kobo
+  (₦49,000), deposit 3,430,000 (₦34,300), matching the chat's own example.
+- Not done: no photos exist for the 15 orders, so extraction accuracy is still unmeasured; the old test Quote and
+  Customer records (from the owner's own phone) are still in the app and must be deleted before any real run.
+
 **Facts from the docs (VERIFIED, URLs)**
 - Agents are defined in `base44/agents/<name>.jsonc` and synced with `agents push` (a full sync: remote agents not
   present locally are deleted): https://docs.base44.com/developers/backend/resources/agents/overview

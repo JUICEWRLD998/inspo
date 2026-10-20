@@ -10,7 +10,8 @@
     "lead_time_days": { "type": "integer" },
     "auto_approve_below": { "type": ["integer", "null"], "description": "Smallest currency unit; null = she approves every quote" },
     "deposit_percent": { "type": "integer" },
-    "bank_or_payment_note": { "type": "string" }
+    "bank_or_payment_note": { "type": "string" },
+    "data_origin": { "type": "string", "enum": ["real", "sample"], "description": "sample = invented for testing, never shown as a real business" }
   },
   "required": ["name", "brand", "currency", "lead_time_days"]
 }

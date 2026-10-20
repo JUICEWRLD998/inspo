@@ -1,0 +1,154 @@
+{
+  "summary": {
+    "data": "data/sample",
+    "sample_data": true,
+    "orders": 15,
+    "exact_match": 11,
+    "median_abs_pct_error": 0,
+    "max_abs_pct_error": 10,
+    "needed_a_check": 2,
+    "scope": "pricing engine only; features transcribed from order text, no photo reading"
+  },
+  "rows": [
+    {
+      "id": 1,
+      "description": "6-inch vanilla birthday cake, simple pink buttercream",
+      "charged": 2500000,
+      "quoted": 2500000,
+      "error": 0,
+      "abs_pct_error": 0,
+      "needs_check": []
+    },
+    {
+      "id": 2,
+      "description": "7-inch chocolate cake with chocolate drip",
+      "charged": 3500000,
+      "quoted": 3800000,
+      "error": 300000,
+      "abs_pct_error": 8.57,
+      "needs_check": []
+    },
+    {
+      "id": 3,
+      "description": "8-inch red velvet cake with fresh flowers",
+      "charged": 5000000,
+      "quoted": 5500000,
+      "error": 500000,
+      "abs_pct_error": 10,
+      "needs_check": []
+    },
+    {
+      "id": 4,
+      "description": "8-inch vanilla cake with custom topper",
+      "charged": 4600000,
+      "quoted": 4600000,
+      "error": 0,
+      "abs_pct_error": 0,
+      "needs_check": []
+    },
+    {
+      "id": 5,
+      "description": "9-inch fondant cake, superhero theme",
+      "charged": 6800000,
+      "quoted": 6500000,
+      "error": -300000,
+      "abs_pct_error": 4.41,
+      "needs_check": []
+    },
+    {
+      "id": 6,
+      "description": "10-inch tall chocolate cake",
+      "charged": 8800000,
+      "quoted": 8800000,
+      "error": 0,
+      "abs_pct_error": 0,
+      "needs_check": []
+    },
+    {
+      "id": 7,
+      "description": "6-inch cake with photo print",
+      "charged": 2900000,
+      "quoted": 2900000,
+      "error": 0,
+      "abs_pct_error": 0,
+      "needs_check": []
+    },
+    {
+      "id": 8,
+      "description": "7-inch cake with edible flowers",
+      "charged": 3700000,
+      "quoted": 3700000,
+      "error": 0,
+      "abs_pct_error": 0,
+      "needs_check": []
+    },
+    {
+      "id": 9,
+      "description": "8-inch cake with detailed piping",
+      "charged": 5000000,
+      "quoted": 4700000,
+      "error": -300000,
+      "abs_pct_error": 6,
+      "needs_check": [
+        "decorations[0].price"
+      ]
+    },
+    {
+      "id": 10,
+      "description": "9-inch red velvet cake with chocolate drip",
+      "charged": 6300000,
+      "quoted": 6300000,
+      "error": 0,
+      "abs_pct_error": 0,
+      "needs_check": []
+    },
+    {
+      "id": 11,
+      "description": "10-inch fondant cake with topper",
+      "charged": 8400000,
+      "quoted": 8400000,
+      "error": 0,
+      "abs_pct_error": 0,
+      "needs_check": []
+    },
+    {
+      "id": 12,
+      "description": "8-inch tall cake with fresh flowers",
+      "charged": 6500000,
+      "quoted": 6500000,
+      "error": 0,
+      "abs_pct_error": 0,
+      "needs_check": []
+    },
+    {
+      "id": 13,
+      "description": "7-inch vanilla cake, simple white design",
+      "charged": 3200000,
+      "quoted": 3200000,
+      "error": 0,
+      "abs_pct_error": 0,
+      "needs_check": []
+    },
+    {
+      "id": 14,
+      "description": "9-inch cake with photo print and topper",
+      "charged": 6300000,
+      "quoted": 6300000,
+      "error": 0,
+      "abs_pct_error": 0,
+      "needs_check": []
+    },
+    {
+      "id": 15,
+      "description": "8-inch chocolate cake, rush order",
+      "charged": 5625000,
+      "quoted": 5625000,
+      "error": 0,
+      "abs_pct_error": 0,
+      "needs_check": [
+        "event_date",
+        "rush_availability"
+      ]
+    }
+  ]
+}

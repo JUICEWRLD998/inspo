@@ -23,7 +23,7 @@ export const FEATURE_SCHEMA = {
         properties: {
           type: {
             type: "string",
-            enum: ["sugar_flowers", "fresh_flowers", "gold_drip", "drip", "topper", "figurine", "edible_print", "macarons", "other"],
+            enum: ["sugar_flowers", "fresh_flowers", "gold_drip", "drip", "topper", "figurine", "edible_print", "piping", "macarons", "other"],
           },
           quantity: { type: "integer" },
           size: { type: "string", enum: ["small", "medium", "large"] },
