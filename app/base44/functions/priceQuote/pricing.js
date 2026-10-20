@@ -7,6 +7,19 @@ const DAY_MS = 86_400_000;
 
 const money = (n) => Math.round(n);
 
+// Amounts are in the smallest unit (2 decimals for NGN, USD, GBP, EUR). The agent must quote these strings,
+// never convert units itself.
+export function display(amount, currency) {
+  const major = amount / 100;
+  return new Intl.NumberFormat("en", {
+    style: "currency",
+    currency,
+    currencyDisplay: "narrowSymbol",
+    minimumFractionDigits: Number.isInteger(major) ? 0 : 2,
+    maximumFractionDigits: 2,
+  }).format(major);
+}
+
 export function priceQuote({ features, rateCard, eventDate, now, delivery = false, flavour = null }) {
   const out = { currency: rateCard.currency, line_items: [], total: 0, needs_check: [], complete: true };
   const flag = (field) => {
@@ -64,5 +77,7 @@ export function priceQuote({ features, rateCard, eventDate, now, delivery = fals
   }
 
   out.total = out.line_items.reduce((sum, l) => sum + l.amount, 0);
+  for (const l of out.line_items) l.amount_display = display(l.amount, out.currency);
+  out.total_display = display(out.total, out.currency);
   return out;
 }

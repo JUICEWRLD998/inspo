@@ -15,7 +15,7 @@ maker's own rate card. She approves with one tap, and the order lands on her bak
 | Pricing core `priceQuote` (tests, deployed function) | LIVE, tested with a test-only rate card |
 | `extractFeatures` (photo to features, deployed function) | LIVE, plumbing verified on a non-cake control; runs on real cake photos return schema-valid features; accuracy NOT MEASURED |
 | Entities: Maker, RateCard, Customer, Quote, Order | LIVE |
-| WhatsApp desk (app agent) | NEXT (Spike B) |
+| WhatsApp desk (app agent) | LIVE for one test conversation: photo to pending quote works; customer record NOT created |
 | Maker console, automations | NEXT |
 | Public site in the maker's brand | NOT LIVE (placeholder page only) |
 | Eval on real past orders | NEXT, blocked on the maker's data |
@@ -25,7 +25,7 @@ No real maker, customer or quote exists in this repo yet. Nothing here is mocked
 ## Verify in 60 seconds
 
 ```bash
-cd app && npm install && npm test        # 13 tests: pricing arithmetic and extraction normaliser
+cd app && npm install && npm test        # 15 tests: pricing arithmetic and extraction normaliser
 ```
 
 Pricing contract, from `app/tests/pricing.test.js`: every amount is a positive integer; the line items sum to the

@@ -85,6 +85,31 @@ agent from computing any number itself.
   Quote creation and both function calls fire in one turn; whether a function tool can read RateCard id from context.
 - The WhatsApp connection itself is a dashboard step (Dashboard -> Agents -> inspo_desk -> Edit Agent -> WhatsApp).
 
+**Spike B result (2026-10-20, VERIFIED live, WhatsApp from his phone; conversation read with
+`base44.agents.getConversation` under `base44 exec --privileged`).** The thin path works end to end:
+1. Photo in -> agent called `extractFeatures` with the photo URL and it returned 8 in, round, semi_naked, 8
+   decorations of type `other`, 12 servings. **The image handoff works** (it was UNVERIFIED). The URL the agent
+   receives is a private `media.base44.com` link with a JWT that expires after 1 hour (`exp - iat = 3600`).
+2. It asked for event date and pickup/delivery, then flavour, one question at a time, as instructed.
+3. `priceQuote` returned 3,300,000 + 200,000 = 3,500,000 kobo with `needs_check: ["decorations[0].type",
+   "event_date"]`, `complete: false`. The agent created a Quote `pending_approval` and told the customer the maker
+   must confirm; it did not call the price final. The edge path I most wanted to see held.
+4. The agent turned kobo into naira itself ("₦35,000"). Correct this time, but that is the model touching a
+   number. **Fix shipped:** `priceQuote` now returns `amount_display` and `total_display`; the agent is told to copy
+   them verbatim (2 new tests, 15 total).
+Defects seen, not fixed yet:
+- `create_Quote` returned an empty draft (the payload was dropped); the agent recovered with `update_Quote`. The
+  final record is complete, but it is two calls and relies on the agent noticing. UNVERIFIED why create drops fields.
+- **No `Customer` record was created** and `Quote.customer_id` is null: the agent looked for the WhatsApp user id,
+  found nothing and moved on. I do not yet know how to get the sender's id into the agent. Open.
+- The saved `Quote.image_url` is the private link; the token is stripped in the stored copy, so it will not load
+  without one. The console (P4) must re-host the photo with `UploadFile` at intake.
+- Credits: the per-message usage block shows `credits_charged: 10` on some assistant turns and null on others, and
+  the tool-call turns carry 8-12k prompt tokens each. A whole quote took about 10 model turns. Exact credits per
+  quote are NOT measured: the balance is only visible on the Credit usage page in the dashboard.
+- Test records (`Quote 6ad757600468a25bfe4ed7ce`, the SPIKE TEST maker and rate card) are test data to delete before
+  the real run.
+
 **Facts from the docs (VERIFIED, URLs)**
 - Agents are defined in `base44/agents/<name>.jsonc` and synced with `agents push` (a full sync: remote agents not
   present locally are deleted): https://docs.base44.com/developers/backend/resources/agents/overview

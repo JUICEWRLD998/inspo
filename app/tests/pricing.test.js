@@ -130,4 +130,17 @@ describe("priceQuote", () => {
     expect(a).toEqual(b);
     expect(JSON.stringify({ features, card })).toBe(snap);
   });
+
+  it("returns display strings so no one converts minor units by hand", () => {
+    const q = priceQuote({ features, rateCard: card, eventDate: far, now });
+    expect(q.total_display).toBe("₦89,000");
+    expect(q.line_items.map((l) => l.amount_display)).toEqual(["₦39,000", "₦39,000", "₦6,000", "₦5,000"]);
+  });
+
+  it("keeps the kobo when there are kobo", () => {
+    const f = { ...features, decorations: [] };
+    const c = { ...card, tier_prices: [{ diameter_in: 8, price: 3000050 }, { diameter_in: 6, price: 1 }] };
+    const q = priceQuote({ features: f, rateCard: c, eventDate: far, now });
+    expect(q.line_items[0].amount_display).toBe("₦39,000.65");
+  });
 });
