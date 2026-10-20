@@ -113,3 +113,37 @@ Measured, not eyeballed:
 Sentence case, plain verbs, no time claims we have not measured (the plan's "about 20 seconds" is not stated until
 the live reply time is measured), no invented customers, no invented counts. The CTA says what happens: "Send us
 your inspo".
+
+## 8. Phase 2 result: three directions explored, one picked
+
+Rendered behind the `prototype` picker (`design/p6/prototypes/index.html`), real photo, real captured quote, at 1280
+and 375. Screenshots in `eval/shots/p6-explore-*` (not committed).
+
+| # | Direction | Axis | Verdict against the hierarchy contract |
+|---|---|---|---|
+| 1 | **Docket** | the receipt is the hero: photo and a printed docket side by side | All five items present once it is fitted to the viewport (at 1280x800 the total was cut off, fixed in the build). Most memorable object. **Picked.** |
+| 2 | **Tag** | image first: a full-bleed photo with the quote as a price tag hung on the cake | Strongest photo and a clever metaphor, but the breakdown is cramped, the tag text collided with the stamp on a phone, and there is no "what next". **Runner-up.** |
+| 3 | **Thread** | conversation first: the chat bubbles are the hero | The quote fell below the fold at 1280, so it fails "what matters most". Dropped. |
+
+`variant` on the docket itself: the three directions are three treatments of that one component (paper docket, price
+tag, chat bubble), compared in place, so a separate pass was not run. That is a shortcut and is named here.
+
+## 9. Signature moment: beat sheet (written before the code)
+
+```
+Signature moment: The docket prints
+Trigger:        the page loads and the hero photo is on screen (the photo itself never animates, so LCP is not delayed);
+                also the "Watch it print again" button
+Beats:          t=0      photo already visible. Docket hidden by clip-path inset(0 0 100% 0)
+                t=200ms  paper starts to print downward: clip-path to inset(0), 700ms, strong ease-out (0.23, 1, 0.32, 1)
+                t=900ms  the whole docket is readable: lines, total, deposit
+                t=880ms  stamp "Waiting for Aminat" lands: scale 1.35 -> 1, rotate -7deg, opacity 0 -> 1, 260ms
+                settle by 1140ms
+The eye follows: photo -> line items -> total -> stamp
+End state:      TEXT on screen: 8" cake and piping lines, Total, deposit, and the stamp words. Announced once through an
+                aria-live="polite" region: "Quote ready: total X, waiting for Aminat to confirm."
+Reduced motion: no clip and no scale; the docket and stamp fade in over 200ms; identical end state and announcement
+Thumbnail frame: t=1250ms (everything settled): source of the OG card, video poster and README hero
+Tool:           CSS keyframes, not Motion: it is predetermined motion that must stay smooth while the page is still loading
+                (animate skill, step 3). Overshoot on the stamp only, because a real rubber stamp does that; controls never overshoot.
+```
