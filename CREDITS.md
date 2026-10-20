@@ -9,8 +9,7 @@
 
 ## Fonts (self-hosted through @fontsource, SIL Open Font License 1.1)
 
-- Caprasimo (headlines and the docket total), Figtree (body and UI).
-- Noto Serif (Black) and Inter, loaded for one character only, the naira sign U+20A6, which Caprasimo and Figtree lack.
+- Figtree (all text). Inter, loaded for one character only, the naira sign U+20A6, which Figtree lacks.
 
 ## Sample data
 

@@ -3,7 +3,41 @@
 Newest first. Each entry: what was measured, what was rejected, where the evidence is. Tags: VERIFIED (doc URL, file
 or live response) or UNVERIFIED. Corrections are made in place and marked CORRECTION.
 
-## 2026-10-20 · P6 the public site (Mustapha Fadhlullah — independent security researcher)
+## 2026-10-20 · P6 REBUILT after he rejected the look (Mustapha Fadhlullah — independent security researcher)
+
+**He saw the live site on his phone and said, in his words, that it did not look good and was "slop". He asked for a clean,
+presentable UI and said using his UI skills was optional.** The P6 entry below describes the design he rejected. I am leaving it
+in place and marking it SUPERSEDED, not rewriting it.
+
+**What was wrong (my read of his three phone screenshots, which were in dark mode):** a themed gimmick. A tilted receipt with a
+torn edge and a rubber stamp, gold bars, pink panels, maroon discs for cake sizes, fat display type, and a green-brown dark theme
+that looked muddy. Every one of those was my "distinctive direction"; it was decoration, not clarity. My own scores (ui-score 86,
+axe zero, contrast measured) were true and beside the point: they measured correctness, not whether it looked good.
+
+**The rebuild (same content and data, new design), no skills pipeline:**
+- **Light only.** The dark theme is gone (`color-scheme: light`, `<meta name="color-scheme">`). A phone set to dark mode now gets
+  the light page; `eval/browser/qa.mjs` checks that on purpose.
+- **One font family** (Figtree) plus Inter for the naira sign only. Caprasimo, the foil, the blush panels and the display serif are removed.
+- **Neutral palette:** near-white ground, soft grey surfaces, dark ink, one berry accent used only for the main button. Measured:
+  lowest text contrast 5.99:1; accent chroma 20x the loudest surface; the four role hues at least dE 20 apart.
+- **Hero:** the headline, the one button, and a plain "photo you send" beside a straight "Your quote" card (status pill, lines,
+  total, deposit). The quote is still the captured real output (`demo-quote.json`). One quiet entrance (lines settle in, 420ms,
+  none under reduced motion); the replay link, the stamp and the print animation are gone.
+- **How it works:** three plain numbered columns (the scorer flagged equal columns as a tell; he asked for clean and conventional,
+  so I chose clarity). **Prices:** simple bordered tables in two balanced columns, no cake-board graphics. FAQ, closing box and footer
+  simplified. Same sample-data labelling.
+- Still true: no gallery (no real maker), the sample note is on the page, the CTA opens the real agent.
+
+**Verification of the rebuild.** Local: unit tests 88; `run-all.sh` 141 checks passed (console, landing journey, states,
+browser QA with planted controls, eight widths). I looked at the 1280 and 390 screenshots. **Not done this time:** `ui-score`,
+`break`, a fresh blind critic, and re-checks on the deployed URL until the deploy below. The filmstrip scripts were deleted with the
+animation they tested.
+
+**Lesson (also for the skills):** passing measured gates does not make a design good. When a brief says "clean and presentable",
+choose the conventional layout and the neutral palette first; a distinctive direction has to be earned by being clearer, not by
+adding objects (stamps, tilts, torn edges). Put this in `ui-studio`'s Pitfalls.
+
+## SUPERSEDED BY THE REBUILD ABOVE · P6 the public site (Mustapha Fadhlullah — independent security researcher)
 
 **Exit check (P6: the ui-studio quality bar passes in a real browser, contrast pairs written out): MET with the named
 exceptions below.** Design record: `design/p6/PLAN.md`. Live: https://inspo-4bb4fe2c.base44.app (`/` is the site; the maker's

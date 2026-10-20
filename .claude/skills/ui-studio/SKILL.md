@@ -205,6 +205,12 @@ If something could not be seen, say it was not verified.
 
 ## Pitfalls
 
+- **Measured does not mean good (2026-10-20, he rejected a design that scored 86/100, axe zero, contrast measured).** A tilted receipt, a torn
+  edge, a rubber stamp, gold bars, a fat display serif and a themed dark mode were all "distinctive" and all read as slop on his phone. When the
+  brief is a small business's site or he says "clean and presentable", start from the conventional layout and a neutral palette with one accent,
+  and earn any distinctive element by making something clearer, not by adding an object. Check the first viewport on his phone in the scheme
+  he actually uses (his is dark mode) before calling it done.
+
 - **Running on Linux or as root (2026-10-20).** The scorer and the verify steps assume Windows paths. In the cloud container use
   `CHROME_PATH=/opt/pw-browsers/chromium-*/chrome-linux/chrome CHROME_FLAGS=--no-sandbox node scripts/ui-score.mjs <http url> ...`
   (Playwright's Chromium; `CHROME_FLAGS` is new, empty by default). Serve over HTTP and unset the proxy variables for localhost

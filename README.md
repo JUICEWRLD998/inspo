@@ -18,7 +18,7 @@ maker's own rate card. She approves with one tap, and the order lands on her bak
 | WhatsApp desk (app agent) | LIVE for one test conversation: photo to pending quote works; customer record NOT created |
 | Maker console (`/desk`, `/orders`, `/rates`, `/settings`) | LIVE, owner sign-in only. Verified in a browser against the local backend; not yet exercised signed in on the live URL |
 | Reminders and alerts | LIVE as a Today screen (one tap each) and an opt-in new-quote email. NOT scheduled: Workflows needs a paid Base44 plan |
-| Public site (`/`): signature docket, how it works, live price list, FAQ, WhatsApp CTA | LIVE, on SAMPLE data, labelled as such. No gallery: there is no real maker |
+| Public site (`/`): hero with photo and quote, how it works, live price list, FAQ, WhatsApp CTA | LIVE, on SAMPLE data, labelled as such. No gallery: there is no real maker |
 | Pricing eval | LIVE on SAMPLE data only (11/15 exact; circular, not accuracy). Real-orders eval NEXT |
 
 **No real maker exists yet.** The rate card and the 15 past orders in `data/sample` are SAMPLE DATA invented in a ChatGPT conversation (see `data/sample/README.md`); they are labelled sample everywhere they appear and are not a real bakery, real customers or real sales.
@@ -31,7 +31,7 @@ node eval/run.mjs                        # 15 sample orders through the pricing 
 node eval/contrast.mjs                   # WCAG ratios for every colour pair, both schemes
 node eval/anon-access.mjs <url> <appId>  # an anonymous visitor must not read quotes, customers or orders
 node eval/hue-distance.mjs              # role hues at least dE 20 apart; accent 4x the chroma of any surface
-node eval/browser/qa.mjs | journey.mjs | states.mjs | widths.mjs | filmstrip.mjs   # the landing page, with planted controls        # 88 tests: pricing, the sample rate card, extraction, quote editing and approval, money, rates form, calendar, reminders
+node eval/browser/qa.mjs | journey.mjs | states.mjs | widths.mjs   # the landing page, with planted controls        # 88 tests: pricing, the sample rate card, extraction, quote editing and approval, money, rates form, calendar, reminders
 ```
 
 Pricing contract, from `app/tests/pricing.test.js`: every amount is a positive integer; the line items sum to the
@@ -43,7 +43,7 @@ gives the same output.
 - `app/base44/entities/` data model, pushed with `base44 entities push -y`
 - `app/base44/functions/priceQuote/` deterministic pricing (`pricing.js`) and its function wrapper
 - `app/base44/functions/extractFeatures/` fixed-schema photo reader, output normalised server-side
-- `app/src/site/` the public landing page (the docket is `Docket.jsx`; its numbers are a captured real run in `demo-quote.json`)
+- `app/src/site/` the public landing page (the quote card is `QuoteCard.jsx`; its numbers are a captured real run in `demo-quote.json`)
 - `app/src/` the maker console: React, CSS Modules + design tokens + `motion`; no Tailwind
 - `app/base44/functions/saveQuote/` the agent's only write path: prices on the server, saves the quote, links the sender
 - `eval/` spike and evaluation scripts
