@@ -3,6 +3,66 @@
 Newest first. Each entry: what was measured, what was rejected, where the evidence is. Tags: VERIFIED (doc URL, file
 or live response) or UNVERIFIED. Corrections are made in place and marked CORRECTION.
 
+## 2026-10-20 · P4 maker console (Mustapha Fadhlullah — independent security researcher)
+
+**Exit check (P4: approve a pending quote on a phone viewport and see the Order on the calendar): PASSED against the
+local `base44 dev` backend; NOT run signed in on the live URL.** I cannot sign in as him in a headless browser, so
+on production I verified only the signed-out gate and the permissions (below). `eval/browser/run-all.sh` reproduces
+the local run: 21 checks green, plus 8 widths x 4 routes with no horizontal scroll.
+
+**What exists:** `/desk` (queue + quote detail: photo, flags he must tick, editable lines with an edit log, approve,
+decline, WhatsApp send link, copy message), `/orders` (14-day strip, day agenda, deposit received, status flow,
+two-tap cancel), `/rates` (every rate-card field, validated), `/settings`. Owner-only sign-in gate.
+
+**Architecture change, and why.** The agent used to write `Quote`/`Customer` through entity tools and call
+`priceQuote` itself. Now its only write path is the function `saveQuote`: it prices server-side from the stored rate
+card, re-saves the photo, creates the Quote (`pending_approval`) and links the sender. The agent never supplies a
+number. Reasons: (1) the model no longer touches any price; (2) entities can be admin-only; (3) fewer model turns, so
+fewer credits (UNMEASURED until a WhatsApp run on this flow, which costs credits I do not have).
+- **Rejected:** `{{user.email}}`-based entity rules. The docs say a rule that references `user.*` blocks anonymous
+  callers outright (https://docs.base44.com/developers/backend/resources/entities/security), and WhatsApp customers
+  are anonymous, so the agent's writes would have failed.
+- **Permissions (VERIFIED live, `node eval/anon-access.mjs <url> <appId>`):** an anonymous read of Quote, Customer
+  and Order returns `[]`; `RateCard` and `Maker` are public on purpose (the agent needs them). The probe has a planted
+  control (the public RateCard must return rows, or it exits 2 "PROBE BROKEN"; verified by giving it a wrong app id).
+- `linkCustomer` (the automation I built earlier) was deleted: folded into `saveQuote`.
+
+**Bugs the verification found (all fixed, all with a check that would catch them again):**
+1. `saveQuote` returned 500 when the sender was unknown: it sent `customer_id: null` and the schema rejects null.
+   Fix: omit nulls (`compact.js`, tested). Found by seeding the local database, not by reading code.
+2. `/rates` scrolled sideways at 375 and 414 px. Found by the overflow probe (planted 3000px element proves it is
+   not blind). Fix: `minmax(0,1fr)` columns, `min-width:0` on fields.
+3. At 1280 px the quote panel was cramped (name wrapped). Found by looking at the screenshot. Fix: photo beside
+   details only from 1440 px.
+4. The deposit percentage lived on both Maker and RateCard. Console now reads the rate card only (the same one the
+   agent and engine use). `Maker.deposit_percent` is left in the schema, unused.
+5. The agent stripped the token from the photo URL, so stored photos could not load. Instructions now say to pass the
+   URL unchanged, and `saveQuote` re-saves the photo under our own link (verified locally: reachable photo gets a new
+   link; an unreachable one still saves the quote with the original link). UNVERIFIED on production: whether
+   `UploadFile` costs integration credits.
+
+**Verification notes (each cost time, keep them)**
+- Contrast, MEASURED (`node eval/contrast.mjs`): 16 pairs x light and dark, all >= 5.6:1 (lowest: danger on the
+  warning surface, dark, 5.64). Planted control: black/white = 21.00, mid-grey/white = 2.67 (fails, as it should).
+  Measured from the tokens, not from rendered pixels.
+- Planted controls: a known-disabled and a known-enabled button for the "Approve is disabled" probe; a 3000px
+  element for the overflow probe; the public RateCard for the permissions probe.
+- Headless Chromium crashed at launch (SIGTRAP) when `TMPDIR` pointed into the scratchpad; unset it.
+- `pkill -f` and `pgrep -f` match the shell running them and kill it (exit 144). Use the `[b]racket` pattern.
+- The local `base44 dev` backend logs the dev account in with any password
+  (`POST /api/apps/<id>/auth/login`); tokens go in `localStorage.base44_access_token`. Entity data is in memory and
+  is wiped on restart. `base44 exec --local` seeds it. Run the dev server without the proxy variable
+  (`NO_PROXY=localhost`), or Vite's own `/api` proxy gets 504s.
+- Local seed data uses two public Wikimedia cake photos and "Local test customer" names. It is throwaway UI test
+  data and is not committed (photos) or counted anywhere.
+- The live page shows a "Made with ..." badge (free plan). Check it before P8.
+
+**Still open**
+- One WhatsApp run on the new flow (photo -> `saveQuote` -> reply) on the cheaper `automatic` model: needs credits.
+- The two old test Quotes and the Customer from his phone are still in production data; delete before a real run.
+- `/` redirects to `/desk`, so a public visitor lands on a sign-in screen. The public site is P6.
+- P5 must be built as Workflows (see the 409 note below), not `function.jsonc` automations.
+
 ## 2026-10-20 · P0-P2 status (Mustapha Fadhlullah — independent security researcher)
 
 **Phase exit checks, run honestly**
