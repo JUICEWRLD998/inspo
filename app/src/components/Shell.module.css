@@ -1,0 +1,119 @@
+.frame {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: minmax(0, 1fr);
+  padding-bottom: calc(4rem + env(safe-area-inset-bottom));
+}
+
+.top {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: color-mix(in oklch, var(--paper) 92%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+  padding: var(--space-3) max(var(--space-4), env(safe-area-inset-left));
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  min-height: 2rem;
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.nav {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 6;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: var(--card);
+  border-top: 1px solid var(--line);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.link {
+  display: grid;
+  place-items: center;
+  min-height: 3.5rem;
+  color: var(--ink-2);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  border-top: 3px solid transparent;
+  transition: color 140ms var(--ease-out), background 140ms var(--ease-out);
+}
+
+.link:hover {
+  background: var(--paper-2);
+}
+
+.active {
+  color: var(--accent);
+  border-top-color: var(--accent);
+}
+
+.main {
+  padding: var(--space-4) max(var(--space-4), env(safe-area-inset-left));
+  min-width: 0;
+}
+
+.alert {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--check-bg);
+  color: var(--check);
+  font-weight: 600;
+}
+
+@media (min-width: 48rem) {
+  .frame {
+    grid-template-columns: 13rem minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    padding-bottom: 0;
+  }
+
+  .top {
+    grid-column: 1 / -1;
+  }
+
+  .nav {
+    position: sticky;
+    top: 3.6rem;
+    align-self: start;
+    height: calc(100dvh - 3.6rem);
+    inset: auto;
+    grid-template-columns: 1fr;
+    grid-auto-rows: 3rem;
+    align-content: start;
+    border-top: 0;
+    border-right: 1px solid var(--line);
+    padding: var(--space-3) 0;
+  }
+
+  .link {
+    place-items: center start;
+    padding-inline: var(--space-5);
+    border-top: 0;
+    border-left: 3px solid transparent;
+  }
+
+  .active {
+    border-left-color: var(--accent);
+  }
+
+  .main {
+    padding: var(--space-5) var(--space-5) var(--space-6);
+    max-width: 76rem;
+    width: 100%;
+  }
+}
