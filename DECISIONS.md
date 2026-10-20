@@ -110,6 +110,24 @@ Defects seen, not fixed yet:
 - Test records (`Quote 6ad757600468a25bfe4ed7ce`, the SPIKE TEST maker and rate card) are test data to delete before
   the real run.
 
+**Customer link (2026-10-20).** Problem: the agent could not see the sender, so `Quote.customer_id` was null.
+- Finding (VERIFIED live): the conversation's `metadata.phone_number` and each message's
+  `additional_message_params.whatsapp_from` carry the sender. The agent has no tool that reads them.
+- **CORRECTION to my first attempt.** I built `linkCustomer` as an entity automation on Quote. Deploy failed with
+  HTTP 409 `workflows_enabled`: this app uses Workflows, so legacy entity automations cannot be deployed (the docs
+  warn of this: https://docs.base44.com/developers/backend/resources/backend-functions/automations). Consequence for
+  P5: **automations must be built as Workflows, not `function.jsonc` automations.** Re-plan P5 around
+  `base44 workflows` before writing any.
+- Second finding (VERIFIED live): `asServiceRole.agents.listConversations` returns 0 conversations; the
+  user-scoped client returns them. So `linkCustomer` now runs as an **agent tool** (the agent calls it with
+  `quote_id`), not as a service job. Direct call with the existing test Quote created a Customer from the
+  conversation's phone number and set `customer_id` (`linked: true`).
+- UNVERIFIED: whether a function called by the agent on behalf of an anonymous WhatsApp customer receives that
+  customer's user context. The test above ran as the app owner, whose own WhatsApp is the connected account.
+  Needs one more WhatsApp run to confirm the agent calls the tool and it links.
+- Note: in that test the conversation belongs to the owner's account (`created_by_email` was `anonymous` on the
+  messages, but the conversation's `created_by_id` is his user id). A real customer may look different.
+
 **Facts from the docs (VERIFIED, URLs)**
 - Agents are defined in `base44/agents/<name>.jsonc` and synced with `agents push` (a full sync: remote agents not
   present locally are deleted): https://docs.base44.com/developers/backend/resources/agents/overview
