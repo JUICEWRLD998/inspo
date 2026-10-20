@@ -25,8 +25,8 @@
   --blush: oklch(92.5% 0.05 5);
   --on-foil: oklch(26% 0.04 40); /* text on gold foil stays dark in both schemes */
 
-  --font-body: "Figtree Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-display: "Caprasimo", "Cooper Black", Georgia, serif;
+  --font-body: "Naira Body", "Figtree Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Naira Display", "Caprasimo", "Cooper Black", Georgia, serif;
 
   --space-1: 0.25rem;
   --space-2: 0.5rem;

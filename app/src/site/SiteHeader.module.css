@@ -1,0 +1,62 @@
+.notice {
+  margin: 0;
+  padding: 0.5rem var(--gutter, 1rem);
+  background: var(--blush);
+  color: var(--ink);
+  font-size: 0.875rem;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: min(100% - 2 * var(--gutter, 1rem), 72rem);
+  margin-inline: auto;
+  padding-block: 1rem;
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--ink);
+  text-decoration: none;
+  min-height: var(--tap);
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.anchor,
+.signin {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  color: var(--ink-2);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9375rem;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .anchor:hover,
+  .signin:hover {
+    color: var(--ink);
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+}
+
+/* Phones: the page is short, so only the sign-in link stays in the bar. */
+@media (max-width: 48rem) {
+  .anchor {
+    display: none;
+  }
+}

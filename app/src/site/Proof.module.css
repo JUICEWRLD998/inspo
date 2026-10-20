@@ -1,0 +1,25 @@
+.strip {
+  width: min(100% - 2 * var(--gutter, 1rem), 72rem);
+  margin-inline: auto;
+  padding-block: var(--space-5);
+  border-top: 1px dashed var(--line);
+}
+
+.strip dl {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4) var(--space-7);
+}
+
+.strip dt {
+  color: var(--ink-2);
+  font-size: 0.9375rem;
+}
+
+.strip dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-variant-numeric: tabular-nums;
+}

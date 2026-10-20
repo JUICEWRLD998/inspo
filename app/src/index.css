@@ -1,3 +1,4 @@
+@import "./styles/fonts.css";
 @import "./styles/tokens.css";
 
 *,
@@ -21,13 +22,19 @@ body {
 }
 
 h1,
-h2,
-h3 {
+h2 {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.15;
   margin: 0;
   text-wrap: balance;
+}
+
+h3 {
+  font-family: var(--font-body);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
 }
 
 button,

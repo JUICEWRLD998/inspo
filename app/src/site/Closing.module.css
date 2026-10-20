@@ -1,0 +1,21 @@
+.section {
+  display: grid;
+  justify-items: start;
+  gap: 1rem;
+  width: min(100% - 2 * var(--gutter, 1rem), 72rem);
+  margin-inline: auto;
+  margin-block: var(--space-6) var(--space-7);
+  padding: clamp(1.5rem, 5vw, 3.5rem);
+  border-radius: 1.25rem;
+  background: var(--blush);
+}
+
+.section h2 {
+  font-size: clamp(1.9rem, 1.2rem + 2.4vw, 3rem);
+}
+
+.section p {
+  margin: 0;
+  max-width: 40ch;
+  font-size: 1.125rem;
+}
