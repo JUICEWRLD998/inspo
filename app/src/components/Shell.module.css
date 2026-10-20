@@ -35,7 +35,7 @@
   inset: auto 0 0 0;
   z-index: 6;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   background: var(--card);
   border-top: 1px solid var(--line);
   padding-bottom: env(safe-area-inset-bottom);
@@ -48,7 +48,7 @@
   color: var(--ink-2);
   text-decoration: none;
   font-weight: 600;
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   border-top: 3px solid transparent;
   transition: color 140ms var(--ease-out), background 140ms var(--ease-out);
 }

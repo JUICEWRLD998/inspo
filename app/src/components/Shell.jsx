@@ -4,6 +4,7 @@ import { Badge } from "./ui";
 import styles from "./Shell.module.css";
 
 const NAV = [
+  { to: "/today", label: "Today" },
   { to: "/desk", label: "Desk" },
   { to: "/orders", label: "Orders" },
   { to: "/rates", label: "Rates" },

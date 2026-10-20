@@ -44,6 +44,7 @@ export const studioApi = {
     }),
   declineQuote: (id, now) => base44.entities.Quote.update(id, { status: "declined", answered_at: now }),
   updateOrder: (id, data) => base44.entities.Order.update(id, data),
+  logReminder: (order, reminders_sent) => base44.entities.Order.update(order.id, { reminders_sent }),
 
   // Order first, then the quote; if the quote write fails, take the order back so nothing is half-approved.
   async approveQuote(quote, { depositPercent, now }) {

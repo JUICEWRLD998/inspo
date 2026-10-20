@@ -11,6 +11,7 @@
     "auto_approve_below": { "type": ["integer", "null"], "description": "Smallest currency unit; null = she approves every quote" },
     "deposit_percent": { "type": "integer" },
     "bank_or_payment_note": { "type": "string" },
+    "notify_email": { "type": "string", "description": "Where to email a new-quote alert. Empty = no email (each email uses an integration credit)" },
     "data_origin": { "type": "string", "enum": ["real", "sample"], "description": "sample = invented for testing, never shown as a real business" }
   },
   "required": ["name", "brand", "currency", "lead_time_days"],

@@ -13,7 +13,12 @@
       "enum": ["confirmed", "baking", "ready", "collected", "cancelled"],
       "default": "confirmed"
     },
-    "notes": { "type": "string" }
+    "notes": { "type": "string" },
+    "reminders_sent": {
+      "type": "array",
+      "items": { "type": "object", "properties": { "kind": { "type": "string" }, "at": { "type": "string" } } },
+      "description": "Reminders the maker has sent, so the same one is not offered again"
+    }
   },
   "required": ["quote_id", "status"],
   "rls": {

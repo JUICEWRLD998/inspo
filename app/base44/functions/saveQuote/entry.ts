@@ -72,8 +72,25 @@ export default async function (req: Request): Promise<Response> {
       edit_log: [],
     }));
 
+    // Opt-in alert: only when the maker has set an email. A failed email never fails the quote.
+    let alerted = false;
+    try {
+      const maker = (await db.entities.Maker.list())[0];
+      if (maker?.notify_email) {
+        await db.integrations.Core.SendEmail({
+          to: maker.notify_email,
+          subject: `New quote waiting: ${priced.total_display}`,
+          body: `A customer sent a cake photo and got a price. It is waiting for you to approve.\n\n${priced.line_items.map((l: any) => `${l.label}: ${l.amount_display}`).join("\n")}\nTotal: ${priced.total_display}${priced.complete ? "" : "\n\nSome details need your check before you approve."}\n\nOpen the Desk in your studio app to review it.`,
+        });
+        alerted = true;
+      }
+    } catch (_) {
+      alerted = false;
+    }
+
     return Response.json({
       saved: true,
+      alerted,
       quote_id: quote.id,
       customer_linked: Boolean(customerId),
       photo_saved: savedImage !== (image_url ?? null),
