@@ -4,14 +4,14 @@ import styles from "./Docket.module.css";
 
 // The signature moment. The numbers are the captured output of the deployed extractFeatures and the pricing engine
 // (see demo-quote.json and eval/capture-demo-quote.mjs), shown as returned. Nothing here is typed in by hand.
-export default function Docket({ run, quote = demo.quote, depositPercent = 70 }) {
+export default function Docket({ quote = demo.quote, depositPercent = 70 }) {
   const [settled, setSettled] = useState(false);
   const q = quote;
   return (
-    <div key={run} className={styles.docket} aria-labelledby="docket-title">
+    <div className={styles.docket} role="group" aria-labelledby="docket-title">
       <div className={styles.paper}>
         <div className={styles.head}>
-          <h3 id="docket-title">Quote from your photo</h3>
+          <p id="docket-title" className={styles.title}>Quote from your photo</p>
           <span className={styles.sample}>Sample</span>
         </div>
         <ul className={styles.lines}>

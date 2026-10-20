@@ -42,8 +42,10 @@
   margin-bottom: 0.5rem;
 }
 
-.head h3 {
+.title {
+  margin: 0;
   font-size: 0.9375rem;
+  font-weight: 700;
   color: var(--ink-2);
 }
 

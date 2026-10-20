@@ -29,7 +29,7 @@ export default function Hero() {
           decoding="async"
         />
         <div className={styles.docketSlot}>
-          <Docket run={run} />
+          <Docket key={run} />
         </div>
         <button type="button" className={styles.replay} onClick={() => setRun((r) => r + 1)}>
           Watch it print again

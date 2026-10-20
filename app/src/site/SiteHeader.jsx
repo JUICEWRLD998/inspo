@@ -3,11 +3,11 @@ import styles from "./SiteHeader.module.css";
 
 export default function SiteHeader() {
   return (
-    <>
+    <header>
       <p className={styles.notice}>
         Sample studio: an invented bakery, used to show how Inspo works.
       </p>
-      <header className={styles.top}>
+      <div className={styles.top}>
         <Link to="/" className={styles.brand}>Aminat's Cake Studio</Link>
         <nav className={styles.nav} aria-label="Site">
           <a href="#how" className={styles.anchor}>How it works</a>
@@ -15,7 +15,7 @@ export default function SiteHeader() {
           <a href="#questions" className={styles.anchor}>Questions</a>
           <Link to="/today" className={styles.signin}>Maker sign in</Link>
         </nav>
-      </header>
-    </>
+      </div>
+    </header>
   );
 }
