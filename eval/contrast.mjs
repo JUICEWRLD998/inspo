@@ -13,6 +13,7 @@ const parse = (block) =>
     .map((m) => [m[1], { L: +m[2] / 100, C: +m[3], h: +m[4] }]));
 const light = parse(blocks.light);
 const dark = { ...light, ...parse(blocks.dark) };
+export const palettes = { light, dark };
 
 function toLinear({ L, C, h }) {
   const a = C * Math.cos((h * Math.PI) / 180), b = C * Math.sin((h * Math.PI) / 180);
@@ -46,6 +47,8 @@ const PAIRS = [
   ["ok", "ok-bg", "approved badge, sent panel"], ["check", "check-bg", "flag chips, sample badge"],
   ["danger", "paper", "error text"], ["danger", "card", "decline button"], ["danger", "check-bg", "error on warning surface"],
   ["ink", "ok-bg", "message preview on sent panel"],
+  ["on-foil", "foil", "docket stamp text"], ["ink", "blush", "text on blush surfaces"], ["accent", "blush", "accent text on blush"],
+  ["accent", "paper-2", "accent link on tinted surface"],
 ];
 let failed = false;
 for (const [scheme, t] of [["light", light], ["dark", dark]]) {
