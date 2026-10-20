@@ -14,3 +14,8 @@ cd ..
 node eval/browser/desk.mjs
 node eval/browser/screens.mjs
 node eval/browser/today.mjs
+node eval/browser/journey.mjs
+node eval/browser/states.mjs
+node eval/browser/qa.mjs
+node eval/browser/widths.mjs
+node eval/browser/filmstrip.mjs

@@ -1,6 +1,8 @@
 // browser-qa for the public landing page: console errors, Core Web Vitals (LCP element, CLS), an axe accessibility pass,
 // and image probes. Every probe has a planted control that must register first, and the control is then removed from
 // the sample. Headless Chromium on software rendering is not a phone: timings are labelled, never promoted.
+// Scope: the app's own #root. The deployed free-plan page also carries Base44's injected #base44-edit-badge (outside #root);
+// its logo, close button and landmark are the platform's, named in DECISIONS.md, and are not measured here.
 // Usage: node eval/browser/qa.mjs   (LANDING_URL / PW_PROXY for a deployed run)
 import { launch, BASE } from "./lib.mjs";
 import { readFileSync } from "node:fs";
@@ -47,7 +49,7 @@ for (const [vp, scheme] of [[{ width: 375, height: 812 }, "light"], [{ width: 12
   log(clsBefore < 0.1, `[${tag}] CLS during load = ${clsBefore.toFixed(4)} (< 0.1)`);
 
   // images: broken / alt / oversized, each with a planted control
-  const imgs = () => p.evaluate(() => [...document.images].map((i) => ({ id: i.id, src: i.getAttribute("src"), complete: i.complete, nw: i.naturalWidth, alt: i.getAttribute("alt"), rw: i.getBoundingClientRect().width, dpr: devicePixelRatio })));
+  const imgs = () => p.evaluate(() => [...document.images].filter((i) => i.closest('#root') || i.id.startsWith('__ctl')).map((i) => ({ id: i.id, src: i.getAttribute("src"), complete: i.complete, nw: i.naturalWidth, alt: i.getAttribute("alt"), rw: i.getBoundingClientRect().width, dpr: devicePixelRatio })));
   await p.evaluate(() => document.body.insertAdjacentHTML("beforeend", '<img id="__ctl_broken" src="/missing-file.png" alt="x" width="10" height="10"><img id="__ctl_noalt" src="/icon.svg" width="10" height="10"><img id="__ctl_big" src="/og.png" alt="x" style="width:100px">'));
   await p.waitForTimeout(800);
   const all = await imgs();
@@ -61,11 +63,11 @@ for (const [vp, scheme] of [[{ width: 375, height: 812 }, "light"], [{ width: 12
 
   // axe: planted control first (an unlabelled button and an image with no alt must be reported)
   await p.addScriptTag({ content: axeSrc });
-  await p.evaluate(() => document.body.insertAdjacentHTML("beforeend", '<button id="__ctl_axe"></button><img id="__ctl_axe2" src="/icon.svg" width="10" height="10">'));
-  const planted = await p.evaluate(async () => (await axe.run(document, { runOnly: ["wcag2a", "wcag2aa", "wcag21aa", "best-practice"] })).violations.map((v) => v.id));
+  await p.evaluate(() => document.getElementById("root").insertAdjacentHTML("beforeend", '<button id="__ctl_axe"></button><img id="__ctl_axe2" src="/icon.svg" width="10" height="10">'));
+  const planted = await p.evaluate(async () => (await axe.run(document.getElementById('root'), { runOnly: ["wcag2a", "wcag2aa", "wcag21aa", "best-practice"] })).violations.map((v) => v.id));
   await p.evaluate(() => document.querySelectorAll('[id^="__ctl"]').forEach((n) => n.remove()));
   if (!(planted.includes("button-name") && planted.includes("image-alt"))) { log(false, `[${tag}] axe control missed its planted violations (${planted.join(",")})`); continue; }
-  const res = await p.evaluate(async () => (await axe.run(document, { runOnly: ["wcag2a", "wcag2aa", "wcag21aa", "best-practice"] })).violations.map((v) => ({ id: v.id, impact: v.impact, n: v.nodes.length, help: v.help })));
+  const res = await p.evaluate(async () => (await axe.run(document.getElementById('root'), { runOnly: ["wcag2a", "wcag2aa", "wcag21aa", "best-practice"] })).violations.map((v) => ({ id: v.id, impact: v.impact, n: v.nodes.length, help: v.help })));
   const serious = res.filter((v) => v.impact === "serious" || v.impact === "critical");
   log(serious.length === 0, `[${tag}] axe: zero serious or critical violations (${res.length} total: ${res.map((v) => `${v.id}:${v.impact}x${v.n}`).join(", ") || "none"})`);
   await ctx.close();

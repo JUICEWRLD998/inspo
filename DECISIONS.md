@@ -3,6 +3,100 @@
 Newest first. Each entry: what was measured, what was rejected, where the evidence is. Tags: VERIFIED (doc URL, file
 or live response) or UNVERIFIED. Corrections are made in place and marked CORRECTION.
 
+## 2026-10-20 · P6 the public site (Mustapha Fadhlullah — independent security researcher)
+
+**Exit check (P6: the ui-studio quality bar passes in a real browser, contrast pairs written out): MET with the named
+exceptions below.** Design record: `design/p6/PLAN.md`. Live: https://inspo-4bb4fe2c.base44.app (`/` is the site; the maker's
+console moved to `/today`, `/desk`, `/orders`, `/rates`, `/settings`, behind sign-in; the console brand links back to `/`).
+
+**What was built.** Hero (headline, the one filled button, the real photo with a printing docket), how it works (three steps,
+recomposed so it is not three equal columns), a price list read live from the `RateCard` (sizes drawn to scale as cake boards,
+add-ons with dotted leaders), FAQ whose numbers (deposit, notice, delivery areas) come from the same card, a closing CTA, a
+footer that says it is a sample. A live-numbers strip renders only when real counts exist (`publicStats`, counts only); it
+renders nothing today.
+
+**Direction.** Three hero directions were rendered with the `prototype` picker (Docket, Tag, Thread) and screenshotted at 1280
+and 375. Docket was picked: the other two failed the hierarchy contract on a point each (Tag: no "what next" and a cramped
+breakdown; Thread: the quote fell below the fold). Runner-up: Tag. The separate `variant` pass on the docket was **not run**;
+the three directions were three treatments of that one component. The exploration page was deleted as the skill requires.
+Boldness: the docket printing. Everything else is flat pistachio paper, cocoa ink and one raspberry accent.
+
+**Skills used, and the one that was not.** `ui-studio` (phases 1-7), `frontend-design`, `better-colors`, `prototype`,
+`emil-design-eng`, `animate`, `break`, `better-interface` (applied by hand, checks and escalation triggers, not pasted). **NOT
+available in this environment, so NOT run:** `ecc:design-system` audit, `ecc:click-path-audit`, `ecc:browser-qa`,
+`ecc:frontend-design-direction`, `ecc:make-interfaces-feel-better`. I did the same jobs with my own scripts and say so. No
+subagents were used, so the "blind critic" was the inline SEMI-BLIND version.
+
+**Signature moment (beat sheet in PLAN.md section 9).** The docket prints top-down (clip-path, 700ms, strong ease-out) then the
+stamp lands (260ms; the one overshoot, as a real rubber stamp does). CSS keyframes, not Motion: predetermined motion that must
+stay smooth while the page loads. It is announced once through an `aria-live` region; the replay link re-announces it.
+- VERIFIED by filmstrip at 1x (`eval/browser/filmstrip.mjs`) and at 10% speed (`filmstrip-slow.mjs`); I looked at both.
+- Reduced motion: only a 200ms fade runs, the end-state text is identical and the announcement is present.
+- Frame times (headless, software rendering, NOT a phone or a GPU): 89 frames, max 16.8ms, none over 33ms. The sampler caught
+  its planted 80ms stall (read 67ms).
+
+**Corrections and bugs found by looking, not by building (each fixed):**
+1. **A production deploy that skipped `base44 build` shipped `apps/undefined`.** Every data call from the live site returned 404
+   (the landing prices, the console). My earlier "the live gate works" check only saw the sign-in screen, which renders even when
+   the backend is unreachable. **CORRECTION to my earlier P4/P5 claims:** they were verified against the local backend only; the
+   deployed console was not working until this fix. Always deploy with `base44 deploy -y --build`, and probe the deployed page's
+   network requests, not its first paint. Now VERIFIED: the data calls return 200 and the CTA resolves to the real agent URL.
+2. **The print animation never ran** (clip-path cannot animate between a shape and `none`; both keyframes must be `inset()`).
+   Found only by filming at 10% speed; the 1x filmstrip was too sparse to show it.
+3. **The stamp covered the total and the deposit** on the docket; it now has its own row.
+4. **The naira sign (U+20A6) is missing from both fonts** (checked with fontkit), so it fell back to a different system font
+   on every device. Two `@font-face` rules carry only that glyph, from Noto Serif Black (display) and Inter (body).
+5. **The page title was still "Todo App"** and the favicon hotlinked Base44's logo (the scorer showed the title). Now a real
+   title, description, `icon.svg` and a 1200x630 social card cut from the settled docket frame.
+6. **Design-token faults found by measuring, not eyeballing:** `eval/hue-distance.mjs` found my first palette had the accent only
+   3.0x the loudest surface (floor 4x), two amber roles at dE 13 in dark mode, and accent text at 4.43:1 on blush. All fixed in
+   `tokens.css`. The first console was also in the cream-serif default cluster; it now shares the new tokens.
+7. Header broke at 320px (both lines wrapped), the headline took four lines at 1024px, and at 1024 the docket covered the photo.
+   Found by looking at the width screenshots, not by the overflow probe (which passed).
+8. `break` (Docket and the price list under long unbreakable names, huge totals, 60 decorations, 12 sizes, loading, error, empty):
+   long names now wrap, the total scales to fit, the docket can shrink. One scenario is **not fixed on purpose**: a docket
+   squeezed to 52px by a 260px flex sibling, which the product never does.
+9. My own probes failed twice and were fixed rather than trusted: the frame-time control threshold (70ms was too strict for a
+   planted 80ms stall) and the axe control, which I had planted outside the root I then scoped it to.
+
+**Measured results**
+- Contrast (`node eval/contrast.mjs`): 20 pairs x light and dark, lowest 4.53:1; control black/white 21.00.
+- Hue distance and chroma (`node eval/hue-distance.mjs`): every role pair at least dE76 20 (lowest 20.2); accent 4.6x (light) and
+  4.7x (dark) the chroma of the loudest surface; control near-identical 0.7, far apart 92.0.
+- `ui-score` (`.claude/skills/ui-studio/scripts/ui-score.mjs`, three planted controls passed every round): 79, 82, 86, 86 (plateau,
+  rounds 3 and 4 identical). One auto-fail tell (three equal columns) and one major (multiple accents) were fixed. Left, named:
+  `gradient-in-declaration-only` (the conic-gradient mask that tears the docket's bottom edge), `missing-hover-state` (the scorer's
+  browser does not satisfy `(hover: hover) and (pointer: fine)`; I verified the hover state directly: the CTA goes from
+  oklch(.52 .2 8) to oklch(.45 .19 8)), `no-overflow-clip` and `two-accent-tokens` (the button colour and its text colour).
+  `disabledStates` 0/5: the landing page has no control that can be disabled. `tokenDiscipline` and `stateCoverage` are "unknown" in
+  URL mode.
+- Click path (`eval/browser/journey.mjs`, 12 checks), content states and keyboard (`states.mjs`, 12), browser QA (`qa.mjs`, 27):
+  console errors 0; LCP element is the hero photo (not lazy, not faded); CLS 0.0006 to 0.049 against a planted control that moved
+  it to 0.2-0.3; axe zero violations of any impact; no broken, missing-alt or oversized images (each with a planted control);
+  hit areas all at least 40px (planted 20px control caught). LCP timings (about 0.5s local, 0.9 to 1.4s deployed) are headless on
+  software rendering and are not a claim about phones.
+- Eight widths, light and dark (`widths.mjs`, 16 checks, per-element overflow with a planted 2000px control): clean. I looked at
+  320, 375, 768, 1024, 1280, 1440 and 1920.
+- Production: journey 12/12, states 12/12, browser QA 27/27, filmstrip, all against the deployed URL.
+
+**Image floor.** The hero is the product's own input and output (R1) on a public-domain photo (R4); the price list needs none
+(real prices fill the view); the console shows the customer's photo. **There is no gallery of "her cakes": there is no real
+maker, and other people's photos shown as hers would mislead.** `CREDITS.md` has the photo and fonts.
+
+**Platform constraints, named, not hidden**
+- The deployed page carries Base44's free-plan **"Made with Base44" badge** (`#base44-edit-badge`, outside the app root). Its logo,
+  18px close button and missing landmark are the platform's, so the deployed probes are scoped to the app's own `#root` and say so.
+  Removing it needs a paid plan.
+- Clicking the CTA redirects (302) to `wa.me/<the agent's number>` with a pre-filled activation message the visitor just sends
+  (`getWhatsAppConnectURL`, VERIFIED live). The WhatsApp conversation itself has not been re-run since the `saveQuote` redesign.
+
+**Not verified / open**
+- The dark theme was looked at (1280, 375) but the full pass at all widths was measured only for overflow.
+- No real maker, photos, copy or brand exist; the palette is derived from the cake world, not from her logo (she has none).
+- Live counts are untested on production with real data (zero now, so the strip is hidden).
+- The signed-in console on the deployed URL has still not been driven (I cannot sign in as him in a headless browser).
+- Tidy-up still owed: the old test Quotes and Customer in production data.
+
 ## 2026-10-20 · P5 automations, and a UI review pass (Mustapha Fadhlullah — independent security researcher)
 
 **Exit check as planned ("`base44 logs` shows each automation firing once"): NOT POSSIBLE, and the reason is the

@@ -27,7 +27,11 @@
 .name {
   font-family: var(--font-display);
   font-size: 1.25rem;
-  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+  min-height: var(--tap);
+  display: inline-flex;
+  align-items: center;
 }
 
 .nav {

@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import { studioApi, useAsync, StudioContext } from "../api/studio";
 import { Badge } from "./ui";
 import styles from "./Shell.module.css";
@@ -21,7 +21,7 @@ export default function Shell({ user }) {
       <div className={styles.frame}>
         <header className={styles.top}>
           <div className={styles.brand}>
-            <span className={styles.name}>{maker?.brand?.replace(/ \(sample data\)$/, "") ?? "Cake desk"}</span>
+            <Link to="/" className={styles.name} title="View the public site">{maker?.brand?.replace(/ \(sample data\)$/, "") ?? "Cake desk"}</Link>
             {sample && <Badge tone="check">Sample data</Badge>}
           </div>
         </header>

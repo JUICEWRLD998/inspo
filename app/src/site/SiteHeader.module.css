@@ -60,3 +60,19 @@
     display: none;
   }
 }
+
+/* Very narrow phones: one line each for the brand and the sign-in link. */
+@media (max-width: 24rem) {
+  .top {
+    gap: 0.5rem;
+  }
+
+  .brand {
+    font-size: 1rem;
+  }
+
+  .signin {
+    white-space: nowrap;
+    font-size: 0.875rem;
+  }
+}

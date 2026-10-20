@@ -68,13 +68,13 @@ const url = `${process.env.LANDING_URL ?? BASE}/`;
   const focusRing = await summary.evaluate((el) => { const s = getComputedStyle(el); return s.outlineStyle !== "none" && parseFloat(s.outlineWidth) >= 2; });
   log(focusRing, "keyboard: the focused question shows a visible ring (>= 2px)");
   // hit-area census, with a planted 20px-tall link that it MUST flag (and then exclude from the real sample)
-  const census = () => page.evaluate(() => [...document.querySelectorAll("a, button, summary")].filter((e) => e.getBoundingClientRect().width > 0 && !e.closest('[class*="skip"]')).map((e) => ({ id: e.id, t: (e.textContent || "").trim().slice(0, 24), h: e.getBoundingClientRect().height })).filter((e) => e.h < 40));
+  const census = () => page.evaluate(() => [...document.querySelectorAll("a, button, summary")].filter((e) => e.getBoundingClientRect().width > 0 && !e.closest('[class*="skip"]') && (e.closest("#root") || e.id === "__ctl")).map((e) => ({ id: e.id, t: (e.textContent || "").trim().slice(0, 24), h: e.getBoundingClientRect().height })).filter((e) => e.h < 40));
   await page.evaluate(() => document.body.insertAdjacentHTML("beforeend", '<a id="__ctl" href="#" style="display:inline-block;height:20px">tiny</a>'));
   const planted = (await census()).some((e) => e.id === "__ctl");
   await page.evaluate(() => document.getElementById("__ctl").remove());
   log(planted, "hit-area census flags its planted 20px control");
   const sizes = (await census()).filter((e) => e.id !== "__ctl");
-  const total = await page.evaluate(() => document.querySelectorAll("a, button, summary").length);
+  const total = await page.evaluate(() => document.querySelectorAll("#root a, #root button, #root summary").length);
   log(sizes.length === 0 && total > 10, `hit areas: all ${total} links, buttons and summaries are at least 40px tall (${sizes.map((s) => `${s.t}=${s.h.toFixed(0)}`).join(", ") || "none short"})`);
   await ctx.close();
 }

@@ -9,13 +9,14 @@
 }
 
 .copy {
+  min-width: 0;
   display: grid;
   gap: 1.25rem;
   justify-items: start;
 }
 
 .copy h1 {
-  font-size: clamp(2.25rem, 1.1rem + 3.7vw, 3.9rem);
+  font-size: clamp(2.25rem, 1rem + 3.3vw, 3.9rem);
   line-height: 1.04;
 }
 
@@ -86,12 +87,22 @@
   }
 }
 
+/* Mid widths: share the row evenly so the headline keeps to three lines. */
+@media (min-width: 52.01rem) and (max-width: 72rem) {
+  .hero {
+    grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+  }
+}
+
 @media (max-width: 52rem) {
   .hero {
     grid-template-columns: minmax(0, 1fr);
   }
+}
 
-  /* Phones: photo, then the docket overlapping only the photo's bottom edge, in normal flow. */
+/* Anywhere the stage is narrower than the photo plus the docket: photo, then the docket overlapping only the photo's
+   bottom edge, in normal flow. Wide screens keep the side-by-side overlap above. */
+@media (max-width: 72rem) {
   .stage {
     display: grid;
     padding-bottom: 0;

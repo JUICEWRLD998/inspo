@@ -46,7 +46,8 @@ log(open1 === true && open2 === false, "FAQ: a question opens and closes on clic
 // 5. maker sign in -> console gate (signed out), brand link returns home
 await p.getByRole("link", { name: "Maker sign in" }).first().click();
 await p.waitForURL(/\/today$/);
-log(await p.getByRole("heading", { name: "Maker sign in" }).isVisible(), "Maker sign in leads to the console's sign-in screen when signed out");
+await p.getByRole("heading", { name: "Maker sign in" }).waitFor({ timeout: 8000 });
+log(true, "Maker sign in leads to the console's sign-in screen when signed out");
 await p.goto(`${URL}/`, { waitUntil: "networkidle" });
 log((await p.getByRole("heading", { level: 1 }).innerText()).includes("Send the cake you want"), "the root URL is the public site, not the console");
 await b.close();
