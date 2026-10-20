@@ -9,3 +9,4 @@ build/
 strategy/
 .playwright-mcp/
 screenshots/tmp/
+eval/shots/
