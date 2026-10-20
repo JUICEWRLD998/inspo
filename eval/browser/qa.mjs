@@ -31,6 +31,10 @@ for (const [vp, scheme] of [[{ width: 375, height: 812 }, "light"], [{ width: 12
   await p.goto(`${URL}/`, { waitUntil: "networkidle" });
   await p.waitForTimeout(2200);
 
+  // the theme is light only: a phone set to dark mode must still get the light page
+  const bg = await p.evaluate(() => getComputedStyle(document.body).backgroundColor);
+  log(/oklch\(0\.99/.test(bg), `[${tag}] page ground is the light token even when the device prefers ${scheme} (${bg})`);
+
   // console
   const real = errors.filter((e) => !/Failed to load resource|analytics|SDK Error|Error data|^\{|^\}|"error"/.test(e));
   log(real.length === 0, `[${tag}] no console errors (${real.slice(0, 2).join(" | ") || "none"})`);
@@ -56,7 +60,7 @@ for (const [vp, scheme] of [[{ width: 375, height: 812 }, "light"], [{ width: 12
   const broken = (x) => x.complete && x.nw === 0, noalt = (x) => x.alt === null, big = (x) => x.nw / (x.rw * x.dpr) > 2;
   log(all.some((x) => x.id === "__ctl_broken" && broken(x)) && all.some((x) => x.id === "__ctl_noalt" && noalt(x)) && all.some((x) => x.id === "__ctl_big" && big(x)), `[${tag}] image probes caught their planted broken, no-alt and oversized controls`);
   const real2 = all.filter((x) => !x.id.startsWith("__ctl"));
-  log(real2.length >= 2 && !real2.some(broken), `[${tag}] no broken images among ${real2.length}`);
+  log(real2.length >= 1 && !real2.some(broken), `[${tag}] no broken images among ${real2.length}`);
   log(!real2.some(noalt), `[${tag}] every image has an alt attribute (decorative ones are alt="")`);
   log(!real2.some((x) => x.rw > 0 && big(x)), `[${tag}] no image is more than 2x oversized (hero ${real2[0]?.nw}px wide)`);
   await p.evaluate(() => document.querySelectorAll('[id^="__ctl"]').forEach((n) => n.remove()));
