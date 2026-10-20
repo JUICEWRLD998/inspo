@@ -20,6 +20,15 @@ describe("toMinor", () => {
   });
 });
 
+describe("toMinor allowZero", () => {
+  it("accepts 0 only when asked, for 'included' prices", () => {
+    expect(toMinor("0")).toBeNull();
+    expect(toMinor("0", { allowZero: true })).toBe(0);
+    expect(toMinor("", { allowZero: true })).toBeNull();
+    expect(toMinor("-1", { allowZero: true })).toBeNull();
+  });
+});
+
 describe("toMajorString", () => {
   it("round-trips with toMinor, dropping needless decimals", () => {
     expect(toMajorString(4200000)).toBe("42000");
