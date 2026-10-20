@@ -1,0 +1,123 @@
+.layout {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: var(--space-3);
+}
+
+.group {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-2);
+  margin: var(--space-4) 0 var(--space-2);
+}
+
+.rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2);
+  border-radius: var(--radius);
+  background: var(--card);
+  border: 1px solid var(--line);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 140ms var(--ease-out), transform 140ms var(--ease-out), box-shadow 140ms var(--ease-out);
+}
+
+.row:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow);
+}
+
+.row:active {
+  transform: scale(0.99);
+}
+
+.current {
+  border-color: var(--accent);
+  box-shadow: var(--shadow);
+}
+
+.thumb {
+  width: 3.5rem;
+  height: 3.5rem;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  background: var(--paper-2);
+}
+
+.rowText {
+  display: grid;
+  min-width: 0;
+}
+
+.rowText strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sub {
+  color: var(--ink-2);
+  font-size: 0.9375rem;
+}
+
+.back {
+  display: inline-block;
+  margin-bottom: var(--space-3);
+  color: var(--ink-2);
+  text-decoration: none;
+  font-weight: 600;
+  min-height: var(--tap);
+  line-height: var(--tap);
+}
+
+.hint,
+.quiet {
+  color: var(--ink-2);
+}
+
+.error {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+/* Phones and tablets: the list, or the quote once one is chosen. */
+.hasDetail .list {
+  display: none;
+}
+
+.layout:not(.hasDetail) .pane {
+  display: none;
+}
+
+@media (min-width: 64rem) {
+  .layout {
+    grid-template-columns: 22rem minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .hasDetail .list,
+  .layout:not(.hasDetail) .pane {
+    display: block;
+  }
+
+  .back {
+    display: none;
+  }
+}
