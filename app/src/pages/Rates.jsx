@@ -6,7 +6,7 @@ import styles from "./Rates.module.css";
 
 const label = (s) => s.replace(/_/g, " ");
 
-function Rows({ title, hint, rows, onChange, blank, children }) {
+function Rows({ title, hint, rows, onChange, blank, cols = 2, children }) {
   const set = (i, patch) => onChange(rows.map((r, j) => (j === i ? { ...r, ...patch } : r)));
   return (
     <fieldset className={styles.group}>
@@ -14,9 +14,9 @@ function Rows({ title, hint, rows, onChange, blank, children }) {
       {hint && <p className={styles.hint}>{hint}</p>}
       <div className={styles.rows}>
         {rows.map((r, i) => (
-          <div className={styles.row} key={i}>
+          <div className={styles.row} style={{ "--cols": cols }} key={i}>
             {children(r, (patch) => set(i, patch), i)}
-            <button type="button" className={styles.remove} aria-label={`Remove row ${i + 1} of ${title}`} onClick={() => onChange(rows.filter((_, j) => j !== i))}>×</button>
+            <button type="button" className={styles.remove} aria-label={`Remove row ${i + 1} of ${title}`} onClick={() => onChange(rows.filter((_, j) => j !== i))}>Remove</button>
           </div>
         ))}
       </div>
@@ -106,7 +106,7 @@ export default function Rates() {
         )}
       </Rows>
 
-      <Rows title="Decorations" hint="'Each' charges per piece. 'Once' charges one price however many. Fill the top price for a range; you will pick the amount on each quote." rows={form.decorations} onChange={(decorations) => patch({ decorations })} blank={{ type: "topper", unit: "each", price: "", max: "" }}>
+      <Rows title="Decorations" hint="'Each' charges per piece. 'Once' charges one price however many. Fill the top price for a range; you will pick the amount on each quote." rows={form.decorations} onChange={(decorations) => patch({ decorations })} blank={{ type: "topper", unit: "each", price: "", max: "" }} cols={4}>
         {(r, set) => (
           <>
             <Field label="Type">

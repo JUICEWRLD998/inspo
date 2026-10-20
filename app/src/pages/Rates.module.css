@@ -46,7 +46,7 @@
 
 .row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr)) auto;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-2);
   align-items: end;
 }
@@ -57,16 +57,18 @@
 }
 
 .group > .row {
-  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .remove {
-  width: var(--tap);
-  height: var(--tap);
+  grid-column: 1 / -1;
+  justify-self: end;
+  min-height: var(--tap);
+  padding: 0 var(--space-3);
   border: 0;
   background: transparent;
   color: var(--ink-2);
-  font-size: 1.5rem;
+  font-weight: 600;
   cursor: pointer;
   border-radius: var(--radius-sm);
 }
@@ -74,6 +76,16 @@
 .remove:hover {
   background: var(--paper-2);
   color: var(--danger);
+}
+
+@media (min-width: 40rem) {
+  .rows .row {
+    grid-template-columns: repeat(var(--cols, 2), minmax(0, 1fr)) auto;
+  }
+
+  .remove {
+    grid-column: auto;
+  }
 }
 
 .errors {

@@ -72,6 +72,7 @@
 .field {
   display: grid;
   gap: var(--space-1);
+  min-width: 0;
 }
 
 .fieldLabel {
@@ -83,6 +84,8 @@
 .field input,
 .field select,
 .field textarea {
+  width: 100%;
+  min-width: 0;
   min-height: var(--tap);
   padding: var(--space-2) var(--space-3);
   border: 1px solid var(--line);

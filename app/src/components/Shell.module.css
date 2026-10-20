@@ -113,7 +113,8 @@
 
   .main {
     padding: var(--space-5) var(--space-5) var(--space-6);
-    max-width: 76rem;
+    max-width: 80rem;
     width: 100%;
+    margin-inline: auto;
   }
 }

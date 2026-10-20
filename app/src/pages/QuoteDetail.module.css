@@ -283,7 +283,8 @@
   background: var(--accent-hover);
 }
 
-@media (min-width: 64rem) {
+/* Photo beside the details only when there is room for both; otherwise the photo sits above. */
+@media (min-width: 90rem) {
   .detail {
     grid-template-columns: minmax(0, 18rem) minmax(0, 1fr);
     gap: var(--space-5);
