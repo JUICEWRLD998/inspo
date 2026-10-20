@@ -15,7 +15,7 @@ export default function Hero() {
         </p>
         <div className={styles.actions}>
           <Cta />
-          <p className={styles.fine}>Opens WhatsApp. No account needed.</p>
+          <p className={styles.fine}>Opens WhatsApp with the first message ready. Just press send.</p>
         </div>
       </div>
       <div className={styles.stage}>

@@ -4,7 +4,7 @@ const widths = process.argv.slice(2).map(Number).filter(Boolean);
 const list = widths.length ? widths : [1280, 375];
 const b = await launch();
 for (const w of list) {
-  const ctx = await b.newContext({ colorScheme: process.env.SCHEME ?? "light", viewport: { width: w, height: w < 768 ? 812 : 800 } });
+  const ctx = await b.newContext({ ignoreHTTPSErrors: Boolean(process.env.PW_PROXY), colorScheme: process.env.SCHEME ?? "light", viewport: { width: w, height: w < 768 ? 812 : 800 } });
   const p = await ctx.newPage();
   const errs = [];
   p.on("pageerror", (e) => errs.push(e.message));

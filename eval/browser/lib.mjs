@@ -7,7 +7,8 @@ export const BASE = process.env.CONSOLE_URL ?? "http://localhost:5173";
 
 export async function launch() {
   const dir = readdirSync("/opt/pw-browsers").find((d) => d.startsWith("chromium-") && !d.includes("headless"));
-  return chromium.launch({ executablePath: `/opt/pw-browsers/${dir}/chrome-linux/chrome` });
+  // PW_PROXY (e.g. $HTTPS_PROXY) is for driving the deployed app from the cloud container; local runs need none.
+  return chromium.launch({ executablePath: `/opt/pw-browsers/${dir}/chrome-linux/chrome`, proxy: process.env.PW_PROXY ? { server: process.env.PW_PROXY } : undefined });
 }
 
 // Headless Chrome defaults to dark; always set the scheme explicitly.

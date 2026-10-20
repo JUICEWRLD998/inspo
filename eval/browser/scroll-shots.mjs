@@ -4,7 +4,7 @@ import { launch, BASE } from "./lib.mjs";
 const w = Number(process.argv[2] ?? 375), scheme = process.argv[3] ?? "light";
 const h = w < 768 ? 812 : 900;
 const b = await launch();
-const ctx = await b.newContext({ colorScheme: scheme, viewport: { width: w, height: h } });
+const ctx = await b.newContext({ ignoreHTTPSErrors: Boolean(process.env.PW_PROXY), colorScheme: scheme, viewport: { width: w, height: h } });
 const p = await ctx.newPage();
 await p.goto(`${process.env.LANDING_URL ?? BASE}/`, { waitUntil: "networkidle" });
 await p.waitForTimeout(1800);

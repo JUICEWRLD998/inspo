@@ -20,9 +20,15 @@
   padding-bottom: calc(4.1rem + var(--tooth) / 2);
 }
 
+/* Both ends must be inset(): clip-path cannot be interpolated between a shape and "none", so a bare "from" never ran
+   (found by filming the replay at 10% speed). */
 @keyframes print {
   from {
     clip-path: inset(0 0 100% 0);
+  }
+
+  to {
+    clip-path: inset(0 0 0 0);
   }
 }
 
