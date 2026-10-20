@@ -13,7 +13,7 @@ maker's own rate card. She approves with one tap, and the order lands on her bak
 | Part | Status |
 |---|---|
 | Pricing core `priceQuote` (tests, deployed function) | LIVE, tested with a test-only rate card |
-| `extractFeatures` (photo to features, deployed function) | LIVE, plumbing verified on a non-cake control; accuracy on cakes NOT MEASURED |
+| `extractFeatures` (photo to features, deployed function) | LIVE, plumbing verified on a non-cake control; runs on real cake photos return schema-valid features; accuracy NOT MEASURED |
 | Entities: Maker, RateCard, Customer, Quote, Order | LIVE |
 | WhatsApp desk (app agent) | NEXT (Spike B) |
 | Maker console, automations | NEXT |

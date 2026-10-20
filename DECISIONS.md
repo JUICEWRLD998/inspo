@@ -64,6 +64,14 @@ total is provisional until she fixes it.
 - Wikimedia Commons rate-limited this container's shared IP (HTTP 429) when I tried to pull a public cake photo for
   the probe, so I stopped rather than retry. Real photos from the maker are the right input anyway.
 
+- **Positive run, live (2026-10-20), two public Wikimedia Commons photos used as technical probes only** (not product
+  content, not in the repo): `Wedding_cake_with_pillar_supports,_2009.jpg` and `Pound_layer_cake.jpg`.
+  Wedding cake returned 3 round fondant tiers (6/8/12 in, confidence 0.8), a topper, 25 red sugar roses, 75 servings;
+  the layer cake returned 1 round 8 in buttercream tier, 12 small piped rosettes (type `other`), 16 servings. Both
+  came back schema-valid with no price key. **Accuracy is not established:** I have no ground truth for these
+  photos, so I only know the output is well-formed and plausible, not right. The 6/8/12 in sizes are the model's
+  estimate from proportions. Credits per call still unknown. Only the P2 eval against her real orders measures accuracy.
+
 **Facts from the docs (VERIFIED, URLs)**
 - Agents are defined in `base44/agents/<name>.jsonc` and synced with `agents push` (a full sync: remote agents not
   present locally are deleted): https://docs.base44.com/developers/backend/resources/agents/overview
