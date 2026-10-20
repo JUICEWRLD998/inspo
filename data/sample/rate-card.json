@@ -1,0 +1,86 @@
+{
+  "_sample": true,
+  "_source": "ChatGPT 'Create Demo Cake Data' share, 2026-10-20. Invented for testing.",
+  "currency": "NGN",
+  "tier_prices": [
+    {
+      "diameter_in": 6,
+      "price": 2500000
+    },
+    {
+      "diameter_in": 7,
+      "price": 3200000
+    },
+    {
+      "diameter_in": 8,
+      "price": 4200000
+    },
+    {
+      "diameter_in": 9,
+      "price": 5500000
+    },
+    {
+      "diameter_in": 10,
+      "price": 7000000
+    }
+  ],
+  "finish_surcharges": {
+    "buttercream": 0,
+    "fondant": 1000000
+  },
+  "height_surcharge": {
+    "standard": 0,
+    "tall": 1500000
+  },
+  "flavour_surcharges": {
+    "vanilla": 0,
+    "chocolate": 300000,
+    "red_velvet": 500000
+  },
+  "decoration_prices": [
+    {
+      "type": "sugar_flowers",
+      "unit": "flat",
+      "price": 500000
+    },
+    {
+      "type": "fresh_flowers",
+      "unit": "flat",
+      "price": 800000
+    },
+    {
+      "type": "topper",
+      "unit": "each",
+      "price": 400000
+    },
+    {
+      "type": "drip",
+      "unit": "flat",
+      "price": 300000
+    },
+    {
+      "type": "piping",
+      "unit": "flat",
+      "price": 500000,
+      "price_max": 1200000
+    },
+    {
+      "type": "edible_print",
+      "unit": "flat",
+      "price": 400000
+    }
+  ],
+  "rush_tiers": [
+    {
+      "within_days": 1,
+      "percent": 25
+    }
+  ],
+  "delivery_zones": {
+    "nearby": 300000,
+    "mainland": 500000,
+    "island": 800000
+  },
+  "deposit_percent": 70,
+  "lead_time_days": 2
+}

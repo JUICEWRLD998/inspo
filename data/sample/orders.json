@@ -1,0 +1,382 @@
+{
+  "_sample": true,
+  "_note": "features transcribed from text, not from photos",
+  "orders": [
+    {
+      "id": 1,
+      "description": "6-inch vanilla birthday cake, simple pink buttercream",
+      "final_price": 2500000,
+      "flavour": "vanilla",
+      "features": {
+        "tiers": [
+          {
+            "diameter_in": 6,
+            "height": "standard",
+            "confidence": 1
+          }
+        ],
+        "shape": "round",
+        "finish": "buttercream",
+        "decorations": [],
+        "unreadable": false
+      },
+      "days_ahead": 14
+    },
+    {
+      "id": 2,
+      "description": "7-inch chocolate cake with chocolate drip",
+      "final_price": 3500000,
+      "flavour": "chocolate",
+      "features": {
+        "tiers": [
+          {
+            "diameter_in": 7,
+            "height": "standard",
+            "confidence": 1
+          }
+        ],
+        "shape": "round",
+        "finish": "buttercream",
+        "decorations": [
+          {
+            "type": "drip",
+            "quantity": 1,
+            "size": "medium",
+            "confidence": 1
+          }
+        ],
+        "unreadable": false
+      },
+      "days_ahead": 14
+    },
+    {
+      "id": 3,
+      "description": "8-inch red velvet cake with fresh flowers",
+      "final_price": 5000000,
+      "flavour": "red_velvet",
+      "features": {
+        "tiers": [
+          {
+            "diameter_in": 8,
+            "height": "standard",
+            "confidence": 1
+          }
+        ],
+        "shape": "round",
+        "finish": "buttercream",
+        "decorations": [
+          {
+            "type": "fresh_flowers",
+            "quantity": 1,
+            "size": "medium",
+            "confidence": 1
+          }
+        ],
+        "unreadable": false
+      },
+      "days_ahead": 14
+    },
+    {
+      "id": 4,
+      "description": "8-inch vanilla cake with custom topper",
+      "final_price": 4600000,
+      "flavour": "vanilla",
+      "features": {
+        "tiers": [
+          {
+            "diameter_in": 8,
+            "height": "standard",
+            "confidence": 1
+          }
+        ],
+        "shape": "round",
+        "finish": "buttercream",
+        "decorations": [
+          {
+            "type": "topper",
+            "quantity": 1,
+            "size": "medium",
+            "confidence": 1
+          }
+        ],
+        "unreadable": false
+      },
+      "days_ahead": 14
+    },
+    {
+      "id": 5,
+      "description": "9-inch fondant cake, superhero theme",
+      "final_price": 6800000,
+      "flavour": "vanilla",
+      "features": {
+        "tiers": [
+          {
+            "diameter_in": 9,
+            "height": "standard",
+            "confidence": 1
+          }
+        ],
+        "shape": "round",
+        "finish": "fondant",
+        "decorations": [],
+        "unreadable": false
+      },
+      "days_ahead": 14
+    },
+    {
+      "id": 6,
+      "description": "10-inch tall chocolate cake",
+      "final_price": 8800000,
+      "flavour": "chocolate",
+      "features": {
+        "tiers": [
+          {
+            "diameter_in": 10,
+            "height": "tall",
+            "confidence": 1
+          }
+        ],
+        "shape": "round",
+        "finish": "buttercream",
+        "decorations": [],
+        "unreadable": false
+      },
+      "days_ahead": 14
+    },
+    {
+      "id": 7,
+      "description": "6-inch cake with photo print",
+      "final_price": 2900000,
+      "flavour": "vanilla",
+      "features": {
+        "tiers": [
+          {
+            "diameter_in": 6,
+            "height": "standard",
+            "confidence": 1
+          }
+        ],
+        "shape": "round",
+        "finish": "buttercream",
+        "decorations": [
+          {
+            "type": "edible_print",
+            "quantity": 1,
+            "size": "medium",
+            "confidence": 1
+          }
+        ],
+        "unreadable": false
+      },
+      "days_ahead": 14
+    },
+    {
+      "id": 8,
+      "description": "7-inch cake with edible flowers",
+      "final_price": 3700000,
+      "flavour": "vanilla",
+      "features": {
+        "tiers": [
+          {
+            "diameter_in": 7,
+            "height": "standard",
+            "confidence": 1
+          }
+        ],
+        "shape": "round",
+        "finish": "buttercream",
+        "decorations": [
+          {
+            "type": "sugar_flowers",
+            "quantity": 1,
+            "size": "medium",
+            "confidence": 1
+          }
+        ],
+        "unreadable": false
+      },
+      "days_ahead": 14
+    },
+    {
+      "id": 9,
+      "description": "8-inch cake with detailed piping",
+      "final_price": 5000000,
+      "flavour": "vanilla",
+      "features": {
+        "tiers": [
+          {
+            "diameter_in": 8,
+            "height": "standard",
+            "confidence": 1
+          }
+        ],
+        "shape": "round",
+        "finish": "buttercream",
+        "decorations": [
+          {
+            "type": "piping",
+            "quantity": 1,
+            "size": "medium",
+            "confidence": 1
+          }
+        ],
+        "unreadable": false
+      },
+      "days_ahead": 14
+    },
+    {
+      "id": 10,
+      "description": "9-inch red velvet cake with chocolate drip",
+      "final_price": 6300000,
+      "flavour": "red_velvet",
+      "features": {
+        "tiers": [
+          {
+            "diameter_in": 9,
+            "height": "standard",
+            "confidence": 1
+          }
+        ],
+        "shape": "round",
+        "finish": "buttercream",
+        "decorations": [
+          {
+            "type": "drip",
+            "quantity": 1,
+            "size": "medium",
+            "confidence": 1
+          }
+        ],
+        "unreadable": false
+      },
+      "days_ahead": 14
+    },
+    {
+      "id": 11,
+      "description": "10-inch fondant cake with topper",
+      "final_price": 8400000,
+      "flavour": "vanilla",
+      "features": {
+        "tiers": [
+          {
+            "diameter_in": 10,
+            "height": "standard",
+            "confidence": 1
+          }
+        ],
+        "shape": "round",
+        "finish": "fondant",
+        "decorations": [
+          {
+            "type": "topper",
+            "quantity": 1,
+            "size": "medium",
+            "confidence": 1
+          }
+        ],
+        "unreadable": false
+      },
+      "days_ahead": 14
+    },
+    {
+      "id": 12,
+      "description": "8-inch tall cake with fresh flowers",
+      "final_price": 6500000,
+      "flavour": "vanilla",
+      "features": {
+        "tiers": [
+          {
+            "diameter_in": 8,
+            "height": "tall",
+            "confidence": 1
+          }
+        ],
+        "shape": "round",
+        "finish": "buttercream",
+        "decorations": [
+          {
+            "type": "fresh_flowers",
+            "quantity": 1,
+            "size": "medium",
+            "confidence": 1
+          }
+        ],
+        "unreadable": false
+      },
+      "days_ahead": 14
+    },
+    {
+      "id": 13,
+      "description": "7-inch vanilla cake, simple white design",
+      "final_price": 3200000,
+      "flavour": "vanilla",
+      "features": {
+        "tiers": [
+          {
+            "diameter_in": 7,
+            "height": "standard",
+            "confidence": 1
+          }
+        ],
+        "shape": "round",
+        "finish": "buttercream",
+        "decorations": [],
+        "unreadable": false
+      },
+      "days_ahead": 14
+    },
+    {
+      "id": 14,
+      "description": "9-inch cake with photo print and topper",
+      "final_price": 6300000,
+      "flavour": "vanilla",
+      "features": {
+        "tiers": [
+          {
+            "diameter_in": 9,
+            "height": "standard",
+            "confidence": 1
+          }
+        ],
+        "shape": "round",
+        "finish": "buttercream",
+        "decorations": [
+          {
+            "type": "edible_print",
+            "quantity": 1,
+            "size": "medium",
+            "confidence": 1
+          },
+          {
+            "type": "topper",
+            "quantity": 1,
+            "size": "medium",
+            "confidence": 1
+          }
+        ],
+        "unreadable": false
+      },
+      "days_ahead": 14
+    },
+    {
+      "id": 15,
+      "description": "8-inch chocolate cake, rush order",
+      "final_price": 5625000,
+      "flavour": "chocolate",
+      "features": {
+        "tiers": [
+          {
+            "diameter_in": 8,
+            "height": "standard",
+            "confidence": 1
+          }
+        ],
+        "shape": "round",
+        "finish": "buttercream",
+        "decorations": [],
+        "unreadable": false
+      },
+      "days_ahead": 1
+    }
+  ]
+}
