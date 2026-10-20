@@ -128,6 +128,20 @@ Defects seen, not fixed yet:
 - Note: in that test the conversation belongs to the owner's account (`created_by_email` was `anonymous` on the
   messages, but the conversation's `created_by_id` is his user id). A real customer may look different.
 
+**Credits and model (2026-10-20).** Credit usage page, as he read it out: message credits 0/25, daily 0/5,
+integration credits 48.1/100, renews Nov 1 2026 00:00 UTC. These are the free-plan limits; no coupon is applied
+(he could not find the challenge code). I read 48.1 as used, so about 52 integration credits remain: UNVERIFIED
+reading of the page.
+- Measured: one WhatsApp quote conversation cost `summary.credit_count: 30` (13 messages, about 10 model turns of
+  8-12k prompt tokens, on `claude-sonnet-5`).
+- Decision: switch `inspo_desk` to `model: "automatic"` (docs: "a fast, low cost model tuned for everyday tasks",
+  https://docs.base44.com/developers/backend/resources/models.md). Rejected: staying on `claude-sonnet-5` while the
+  budget is about one more conversation.
+- Risk, UNVERIFIED: a cheaper model may call the tools less reliably or break the "copy display strings verbatim"
+  rule. It needs one WhatsApp run to check, and the check is: did it call extractFeatures, priceQuote, create the
+  Quote, call linkCustomer, and quote exactly the returned `total_display`? Credits per quote after the switch:
+  NOT YET MEASURED.
+
 **Facts from the docs (VERIFIED, URLs)**
 - Agents are defined in `base44/agents/<name>.jsonc` and synced with `agents push` (a full sync: remote agents not
   present locally are deleted): https://docs.base44.com/developers/backend/resources/agents/overview
