@@ -55,7 +55,7 @@ log(errors.length === 0, `no page errors (${errors.slice(0, 2).join(" | ")})`);
 
 // ---- every width, every route
 const WIDTHS = [320, 375, 414, 768, 1024, 1280, 1440, 1920];
-const ROUTES = ["/desk", "/orders", "/rates", "/settings"];
+const ROUTES = ["/today", "/desk", "/orders", "/rates", "/settings"];
 const overflow = () => document.documentElement.scrollWidth - window.innerWidth;
 await page.close();
 for (const w of WIDTHS) {

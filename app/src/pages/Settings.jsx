@@ -8,6 +8,7 @@ const FIELDS = [
   { key: "name", label: "Your name" },
   { key: "city", label: "City" },
   { key: "whatsapp_display", label: "WhatsApp number customers message", hint: "Display only. The agent's number is set in Base44." },
+  { key: "notify_email", label: "Email me when a quote arrives", hint: "Leave empty for no email. Each email uses one Base44 integration credit.", type: "email" },
 ];
 
 export default function Settings() {
@@ -28,9 +29,13 @@ export default function Settings() {
       setStatus({ busy: false, saved: false, error: "Business name and your name can't be empty." });
       return;
     }
+    if (form.notify_email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.notify_email.trim())) {
+      setStatus({ busy: false, saved: false, error: "That email address does not look right." });
+      return;
+    }
     setStatus({ busy: true, error: "", saved: false });
     try {
-      await studioApi.updateMaker(maker.id, form);
+      await studioApi.updateMaker(maker.id, { ...form, notify_email: form.notify_email.trim() });
       await reload();
       setStatus({ busy: false, error: "", saved: true });
     } catch (err) {
@@ -57,7 +62,7 @@ export default function Settings() {
       <form onSubmit={save} className={styles.form} noValidate>
         {FIELDS.map((f) => (
           <Field key={f.key} label={f.label} hint={f.hint}>
-            <input value={form[f.key]} onChange={set(f.key)} />
+            <input type={f.type ?? "text"} inputMode={f.type === "email" ? "email" : undefined} autoComplete={f.type === "email" ? "email" : "off"} value={form[f.key]} onChange={set(f.key)} />
           </Field>
         ))}
         <Field label="Payment note" hint="Added to the message you send when you approve a quote, for example your account details.">

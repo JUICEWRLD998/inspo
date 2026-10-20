@@ -13,3 +13,4 @@ PHOTOS="${PHOTOS:?set PHOTOS}" npx -y base44@latest exec --local < ../eval/seed-
 cd ..
 node eval/browser/desk.mjs
 node eval/browser/screens.mjs
+node eval/browser/today.mjs
