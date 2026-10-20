@@ -72,6 +72,19 @@ total is provisional until she fixes it.
   photos, so I only know the output is well-formed and plausible, not right. The 6/8/12 in sizes are the model's
   estimate from proportions. Credits per call still unknown. Only the P2 eval against her real orders measures accuracy.
 
+**Spike B prep (2026-10-20).** `inspo_desk` agent written (`app/base44/agents/inspo_desk.jsonc`) and pushed
+(VERIFIED: `agents push` printed `Created: inspo_desk`). Tools: Maker/RateCard read, Customer and Quote
+read/create/update, functions `extractFeatures` and `priceQuote`. Model `claude-sonnet-5`. Instructions forbid the
+agent from computing any number itself.
+- **TEST DATA, to delete before the real run:** Maker `6ad74876930fb883233bd335` ("SPIKE TEST (not a real maker)")
+  and RateCard `6ad7487677622aa7c007f90a`, created by `eval/seed-spike-test-data.mjs`, so the agent has something
+  to price against. They are not the maker's numbers.
+- Live check of the deployed `priceQuote` against that card: 8 in buttercream + 4 sugar flowers returned
+  3,000,000 + 600,000 = 3,600,000, `complete: true`. Matches the hand sum.
+- UNVERIFIED until the WhatsApp run: how the agent receives the photo's file URL to pass as `image_url`; whether
+  Quote creation and both function calls fire in one turn; whether a function tool can read RateCard id from context.
+- The WhatsApp connection itself is a dashboard step (Dashboard -> Agents -> inspo_desk -> Edit Agent -> WhatsApp).
+
 **Facts from the docs (VERIFIED, URLs)**
 - Agents are defined in `base44/agents/<name>.jsonc` and synced with `agents push` (a full sync: remote agents not
   present locally are deleted): https://docs.base44.com/developers/backend/resources/agents/overview
