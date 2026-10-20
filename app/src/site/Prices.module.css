@@ -84,7 +84,9 @@
 }
 
 .item dt {
-  flex: none;
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .item::after {
@@ -114,7 +116,7 @@
   max-width: 62ch;
   padding: 0.9rem 1.1rem;
   border-radius: var(--radius-sm);
-  background: var(--check-bg);
+  background: var(--paper-2);
   color: var(--ink);
 }
 

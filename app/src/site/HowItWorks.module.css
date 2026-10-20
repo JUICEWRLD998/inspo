@@ -15,8 +15,22 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--space-6);
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  grid-template-areas: "one two" "one three";
+  gap: var(--space-6) clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+}
+
+.step:nth-child(1) {
+  grid-area: one;
+}
+
+.step:nth-child(2) {
+  grid-area: two;
+}
+
+.step:nth-child(3) {
+  grid-area: three;
 }
 
 .step {
@@ -47,16 +61,17 @@
   width: 2.25rem;
   height: 2.25rem;
   border-radius: 50%;
-  background: var(--foil);
-  color: var(--on-foil);
+  background: var(--card);
+  color: var(--ink);
+  border: 2px solid var(--ink);
   font-family: var(--font-display);
-  font-size: 1.1rem;
+  font-size: 1.05rem;
 }
 
 .thumb {
   width: 100%;
   height: auto;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 4 / 3;
   object-fit: cover;
   border-radius: var(--radius);
   background: var(--paper-2);
@@ -66,9 +81,7 @@
   display: grid;
   align-content: center;
   gap: 0.35rem;
-  min-height: 7rem;
-  aspect-ratio: 16 / 10;
-  padding: 0.9rem 1rem;
+  padding: 1rem 1.1rem;
   border-top: 0.375rem solid var(--foil);
   background: var(--card);
   font-size: 0.9375rem;
@@ -91,7 +104,7 @@
 .stampWrap {
   display: grid;
   place-items: center;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 6;
   border-radius: var(--radius);
   background: var(--blush);
 }
@@ -110,6 +123,7 @@
 @media (max-width: 52rem) {
   .steps {
     grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "one" "two" "three";
     gap: var(--space-6);
   }
 
@@ -150,17 +164,5 @@
   .stampWrap {
     grid-column: auto;
     grid-row: auto;
-  }
-}
-
-/* Single column on a phone: the pictures need less height than the 16:10 they have beside text. */
-@media (max-width: 30rem) {
-  .mini {
-    aspect-ratio: auto;
-    min-height: 0;
-  }
-
-  .stampWrap {
-    aspect-ratio: 16 / 7;
   }
 }

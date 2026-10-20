@@ -1,12 +1,12 @@
 import { useState } from "react";
-import quote from "./demo-quote.json";
+import demo from "./demo-quote.json";
 import styles from "./Docket.module.css";
 
 // The signature moment. The numbers are the captured output of the deployed extractFeatures and the pricing engine
 // (see demo-quote.json and eval/capture-demo-quote.mjs), shown as returned. Nothing here is typed in by hand.
-export default function Docket({ run }) {
+export default function Docket({ run, quote = demo.quote, depositPercent = 70 }) {
   const [settled, setSettled] = useState(false);
-  const q = quote.quote;
+  const q = quote;
   return (
     <div key={run} className={styles.docket} aria-labelledby="docket-title">
       <div className={styles.paper}>
@@ -30,7 +30,7 @@ export default function Docket({ run }) {
           <strong className={styles.amount}>{q.total_display}</strong>
         </div>
         <div className={styles.deposit}>
-          <span>70% deposit</span>
+          <span>{depositPercent}% deposit</span>
           <span className={styles.amount}>{q.deposit_display}</span>
         </div>
         <div className={styles.stamp} onAnimationEnd={() => setSettled(true)}>

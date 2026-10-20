@@ -3,6 +3,8 @@
 .docket {
   position: relative;
   width: min(100%, 22rem);
+  min-width: 0;
+  container-type: inline-size;
   filter: drop-shadow(0 12px 18px oklch(26% 0.04 40 / 0.28));
 }
 
@@ -69,6 +71,11 @@
   border-bottom: 1px dashed var(--line);
 }
 
+.line > span:first-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
 .line small {
   display: block;
   margin-top: 0.125rem;
@@ -92,8 +99,11 @@
 .total strong {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: 2.25rem;
+  font-size: min(2.25rem, 11cqw);
   line-height: 1.1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  text-align: right;
 }
 
 .deposit {

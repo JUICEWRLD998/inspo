@@ -205,6 +205,15 @@ If something could not be seen, say it was not verified.
 
 ## Pitfalls
 
+- **Running on Linux or as root (2026-10-20).** The scorer and the verify steps assume Windows paths. In the cloud container use
+  `CHROME_PATH=/opt/pw-browsers/chromium-*/chrome-linux/chrome CHROME_FLAGS=--no-sandbox node scripts/ui-score.mjs <http url> ...`
+  (Playwright's Chromium; `CHROME_FLAGS` is new, empty by default). Serve over HTTP and unset the proxy variables for localhost
+  (`NO_PROXY=localhost`), or the page never loads. `pkill -f` and `pgrep -f` kill the shell that runs them: use the `[b]racket` trick.
+- **`clip-path` cannot animate between a shape and `none`** (2026-10-20, found only by filming at 10% speed). Write both keyframes as
+  `inset(...)`; a bare `from` never runs. A filmstrip at 1x was too sparse to show it: always film the slow version too.
+- **A deploy that skips `base44 build` ships `apps/undefined`** (2026-10-20): every API call 404s while the page still renders. Probe
+  the deployed page's network requests, not just its first paint.
+
 - **One skill only** (2026-10-04, Hallmark retired 2026-10-17). One skill's checklist is one set of blind spots. Run the specialists in the table; never a stock theme.
 - **Committing to the first direction.** It is the modal one. Explore three before structure.
 - **Cloning a reference's grammar** instead of learning why it reads well. Derive from the subject.

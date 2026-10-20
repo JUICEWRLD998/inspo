@@ -48,6 +48,8 @@
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --tap: 2.75rem;
   color-scheme: light dark;
+  /* Read by the scorer from computed CSS: the page's macrostructure, so one build can be told from another. */
+  --macrostructure: Docket hero with open type sections;
 }
 
 @media (prefers-color-scheme: dark) {

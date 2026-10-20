@@ -32,6 +32,11 @@ const Item = ({ name, price, per }) => (
 export default function Prices() {
   const { status, data: card, retry } = useRateCard();
   const d = useMemo(() => (card ? describeRateCard(card) : null), [card]);
+  return <PricesView status={status} d={d} retry={retry} />;
+}
+
+// The view alone, so it can be rendered with any data (the break harness does).
+export function PricesView({ status, d, retry }) {
   // Cake boards drawn to scale: the diameter is the price list's own number of inches.
   const biggest = d ? Math.max(...d.sizes.map((s) => s.inches)) : 10;
 

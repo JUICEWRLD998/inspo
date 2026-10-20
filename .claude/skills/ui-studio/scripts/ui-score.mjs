@@ -96,6 +96,8 @@ const chrome = spawn(chromePath, [
   '--hide-scrollbars', '--force-device-scale-factor=1', '--mute-audio',
   `--user-data-dir=${profile}`,
   `--remote-debugging-port=${debugPort}`,
+  // Linux/root containers need CHROME_FLAGS="--no-sandbox" (2026-10-20). Empty by default, so Windows runs are unchanged.
+  ...(process.env.CHROME_FLAGS ? process.env.CHROME_FLAGS.split(' ').filter(Boolean) : []),
   'about:blank',
 ], { stdio: ['ignore', 'ignore', 'ignore'] })
 
