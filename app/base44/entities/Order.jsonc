@@ -1,0 +1,19 @@
+{
+  "name": "Order",
+  "type": "object",
+  "properties": {
+    "quote_id": { "type": "string" },
+    "customer_id": { "type": "string" },
+    "total": { "type": "integer" },
+    "deposit_due": { "type": "integer" },
+    "deposit_status": { "type": "string", "enum": ["unpaid", "paid_confirmed_by_maker"], "default": "unpaid" },
+    "pickup_or_delivery_at": { "type": "string", "format": "date-time" },
+    "status": {
+      "type": "string",
+      "enum": ["confirmed", "baking", "ready", "collected", "cancelled"],
+      "default": "confirmed"
+    },
+    "notes": { "type": "string" }
+  },
+  "required": ["quote_id", "status"]
+}

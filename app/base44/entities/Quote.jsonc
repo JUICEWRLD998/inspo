@@ -1,0 +1,35 @@
+{
+  "name": "Quote",
+  "type": "object",
+  "properties": {
+    "customer_id": { "type": "string" },
+    "image_url": { "type": "string" },
+    "features": { "type": "object", "description": "extractFeatures output; no prices" },
+    "line_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": { "type": "string" },
+          "qty": { "type": "integer" },
+          "unit_price": { "type": "integer" },
+          "amount": { "type": "integer" }
+        }
+      }
+    },
+    "total": { "type": "integer" },
+    "currency": { "type": "string" },
+    "needs_check": { "type": "array", "items": { "type": "string" } },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "pending_approval", "sent", "accepted", "expired", "declined"],
+      "default": "draft"
+    },
+    "event_date": { "type": "string", "format": "date-time" },
+    "servings": { "type": "integer" },
+    "edit_log": { "type": "array", "items": { "type": "object" }, "description": "Maker edits before approval" },
+    "answered_at": { "type": "string", "format": "date-time" },
+    "approved_at": { "type": "string", "format": "date-time" }
+  },
+  "required": ["status"]
+}

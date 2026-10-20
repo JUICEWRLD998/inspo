@@ -1,0 +1,38 @@
+{
+  "name": "RateCard",
+  "type": "object",
+  "properties": {
+    "maker_id": { "type": "string" },
+    "currency": { "type": "string" },
+    "tier_prices": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": { "diameter_in": { "type": "number" }, "price": { "type": "integer" } },
+        "required": ["diameter_in", "price"]
+      }
+    },
+    "height_multiplier": { "type": "object", "description": "{standard: 1, tall: n}" },
+    "finish_multipliers": { "type": "object", "description": "finish name -> multiplier" },
+    "flavour_surcharges": { "type": "object", "description": "flavour -> integer surcharge" },
+    "decoration_prices": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": { "type": "string" },
+          "unit": { "type": "string", "enum": ["each", "flat"] },
+          "price": { "type": "integer" }
+        },
+        "required": ["type", "unit", "price"]
+      }
+    },
+    "rush_fee": {
+      "type": "object",
+      "properties": { "within_days": { "type": "number" }, "amount": { "type": "integer" } }
+    },
+    "delivery_fee": { "type": "integer" },
+    "lead_time_days": { "type": "integer" }
+  },
+  "required": ["maker_id", "currency", "tier_prices"]
+}

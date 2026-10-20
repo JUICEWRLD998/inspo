@@ -1,0 +1,16 @@
+{
+  "name": "Maker",
+  "type": "object",
+  "properties": {
+    "name": { "type": "string" },
+    "brand": { "type": "string" },
+    "city": { "type": "string" },
+    "currency": { "type": "string", "description": "ISO 4217 code" },
+    "whatsapp_display": { "type": "string" },
+    "lead_time_days": { "type": "integer" },
+    "auto_approve_below": { "type": ["integer", "null"], "description": "Smallest currency unit; null = she approves every quote" },
+    "deposit_percent": { "type": "integer" },
+    "bank_or_payment_note": { "type": "string" }
+  },
+  "required": ["name", "brand", "currency", "lead_time_days"]
+}

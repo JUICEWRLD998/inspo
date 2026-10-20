@@ -1,0 +1,11 @@
+{
+  "name": "Customer",
+  "type": "object",
+  "properties": {
+    "name": { "type": "string" },
+    "whatsapp_id": { "type": "string", "description": "As the channel provides it" },
+    "first_seen_at": { "type": "string", "format": "date-time" },
+    "orders_count": { "type": "integer", "default": 0 }
+  },
+  "required": ["whatsapp_id"]
+}
