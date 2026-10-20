@@ -4,9 +4,7 @@ import styles from "./SiteHeader.module.css";
 export default function SiteHeader() {
   return (
     <header>
-      <p className={styles.notice}>
-        Sample studio: an invented bakery, used to show how Inspo works.
-      </p>
+      <p className={styles.notice}>Sample studio: an invented bakery, used to show how Inspo works.</p>
       <div className={styles.top}>
         <Link to="/" className={styles.brand}>Aminat's Cake Studio</Link>
         <nav className={styles.nav} aria-label="Site">

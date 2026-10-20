@@ -1,0 +1,113 @@
+.card {
+  min-width: 0;
+  display: grid;
+  align-content: start;
+  gap: 0.25rem;
+  padding: 1.25rem 1.25rem 1rem;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.title {
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.0625rem;
+}
+
+.status {
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: var(--check-bg);
+  color: var(--check);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.lines {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.line,
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.7rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.line > span:first-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.line small {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--ink-2);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+.amount {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.total {
+  font-weight: 600;
+}
+
+.total strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-size: 1.75rem;
+  letter-spacing: -0.02em;
+}
+
+.deposit {
+  margin: 0;
+  padding-bottom: 0.75rem;
+  color: var(--ink-2);
+  font-size: 0.9375rem;
+}
+
+.sample {
+  margin: 0;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--line);
+  color: var(--ink-2);
+  font-size: 0.8125rem;
+}
+
+/* One quiet entrance: the lines settle in one after another, then stay. Nothing loops. */
+@media (prefers-reduced-motion: no-preference) {
+  .line,
+  .total,
+  .deposit {
+    animation: settle 420ms var(--ease-out) backwards;
+    animation-delay: calc(120ms + var(--i, 0) * 70ms);
+  }
+
+  @keyframes settle {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+  }
+}

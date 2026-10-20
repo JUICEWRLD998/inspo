@@ -3,7 +3,8 @@ import { readFileSync } from "node:fs";
 
 export function readTokens(path = "app/src/styles/tokens.css") {
   const css = readFileSync(path, "utf8");
-  const blocks = { light: css.slice(css.indexOf(":root {"), css.indexOf("@media")), dark: css.slice(css.indexOf(":root:not")) };
+  const darkAt = css.indexOf(":root:not");
+  const blocks = { light: css.slice(css.indexOf(":root {"), darkAt === -1 ? undefined : css.indexOf("@media")), dark: darkAt === -1 ? "" : css.slice(darkAt) };
   const parse = (block) => Object.fromEntries([...block.matchAll(/--([a-z0-9-]+):\s*oklch\(([\d.]+)%\s+([\d.]+)\s+([\d.]+)(?:\s*\/\s*[\d.]+)?\)/g)].map((m) => [m[1], { L: +m[2] / 100, C: +m[3], h: +m[4] }]));
   const light = parse(blocks.light);
   return { light, dark: { ...light, ...parse(blocks.dark) } };

@@ -2,7 +2,7 @@
   width: min(100% - 2 * var(--gutter, 1rem), 72rem);
   margin-inline: auto;
   padding-block: var(--space-7);
-  border-top: 1px dashed var(--line);
+  border-top: 1px solid var(--line);
   display: grid;
   grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
   gap: var(--space-6);
@@ -10,7 +10,7 @@
 }
 
 .section h2 {
-  font-size: clamp(1.75rem, 1.2rem + 1.8vw, 2.6rem);
+  font-size: clamp(1.6rem, 1.1rem + 1.6vw, 2.25rem);
 }
 
 .list {
@@ -28,7 +28,7 @@
   gap: 1rem;
   min-height: 3.5rem;
   padding-block: 0.5rem;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 1.0625rem;
   cursor: pointer;
   list-style: none;

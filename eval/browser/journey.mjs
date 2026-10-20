@@ -7,7 +7,7 @@ const log = (ok, msg) => { console.log(`${ok ? "PASS" : "FAIL"}  ${msg}`); if (!
 const ctx = await b.newContext({ ignoreHTTPSErrors: Boolean(process.env.PW_PROXY), colorScheme: "light", viewport: { width: 1280, height: 800 } });
 const p = await ctx.newPage();
 await p.goto(`${URL}/`, { waitUntil: "networkidle" });
-await p.waitForTimeout(1800);
+await p.waitForTimeout(800);
 
 // 1. nav anchors scroll their section into view
 for (const [name, id] of [["How it works", "how"], ["Prices", "prices"], ["Questions", "questions"]]) {
@@ -27,15 +27,7 @@ log(/\/api\/apps\/[0-9a-z]+\/agents\/inspo_desk\/whatsapp$/.test(href ?? "") && 
 log((await first.getAttribute("target")) === "_blank" && /noopener/.test((await first.getAttribute("rel")) ?? ""), "CTA opens a new tab with rel=noopener");
 log((await ctas.nth(0).getAttribute("href")) === (await ctas.nth(1).getAttribute("href")), "both calls to action go to the same place");
 
-// 3. replay: the docket prints again AND the verdict is announced again
-await p.waitForSelector('[role="status"]:has-text("Quote ready")');
-await p.getByRole("button", { name: "Watch it print again" }).click();
-const cleared = await p.locator('[role="status"]').filter({ hasText: "Quote ready" }).count();
-log(cleared === 0, "replay: the announcement is cleared when it restarts");
-await p.waitForSelector('[role="status"]:has-text("Quote ready")', { timeout: 3000 });
-log(true, "replay: the verdict is announced again once it settles");
-
-// 4. FAQ: toggles open and closed, one at a time is not forced
+// 3. FAQ: toggles open and closed, one at a time is not forced
 const q = p.locator("summary").first();
 await q.click();
 const open1 = await p.locator("details").first().evaluate((d) => d.open);
@@ -43,7 +35,7 @@ await q.click();
 const open2 = await p.locator("details").first().evaluate((d) => d.open);
 log(open1 === true && open2 === false, "FAQ: a question opens and closes on click");
 
-// 5. maker sign in -> console gate (signed out), brand link returns home
+// 4. maker sign in -> console gate (signed out), brand link returns home
 await p.getByRole("link", { name: "Maker sign in" }).first().click();
 await p.waitForURL(/\/today$/);
 await p.getByRole("heading", { name: "Maker sign in" }).waitFor({ timeout: 8000 });

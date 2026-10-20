@@ -3,11 +3,11 @@
   align-items: center;
   justify-content: center;
   min-height: 3.25rem;
-  padding: 0 1.75rem;
-  border-radius: 999px;
+  padding: 0 1.6rem;
+  border-radius: var(--radius);
   background: var(--accent);
   color: var(--on-accent);
-  font-weight: 700;
+  font-weight: 600;
   font-size: 1.0625rem;
   text-decoration: none;
   transition: background var(--dur-micro) var(--ease-out), transform var(--dur-micro) var(--ease-out);

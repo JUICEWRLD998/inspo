@@ -37,8 +37,6 @@ export default function Prices() {
 
 // The view alone, so it can be rendered with any data (the break harness does).
 export function PricesView({ status, d, retry }) {
-  // Cake boards drawn to scale: the diameter is the price list's own number of inches.
-  const biggest = d ? Math.max(...d.sizes.map((s) => s.inches)) : 10;
 
   return (
     <section id="prices" className={styles.section} aria-labelledby="prices-title">
@@ -58,17 +56,10 @@ export function PricesView({ status, d, retry }) {
 
       {d && (
         <>
-          <ul className={styles.sizes} aria-label="Cake sizes">
-            {d.sizes.map((s) => (
-              <li key={s.inches} className={styles.size}>
-                <span className={styles.board} style={{ "--ratio": s.inches / biggest }} aria-hidden="true" />
-                <span className={styles.inches}>{s.inches}"</span>
-                <span className={styles.sizePrice}>{s.price}</span>
-              </li>
-            ))}
-          </ul>
-
           <div className={styles.groups}>
+            <Group title="Cake sizes">
+              {d.sizes.map((x) => <Item key={x.inches} name={`${x.inches}"`} price={x.price} />)}
+            </Group>
             {(d.finishes.length > 0 || d.tall) && (
               <Group title="Finish and height">
                 {d.finishes.map((f) => <Item key={f.name} {...f} name={`${f.name} covering`} />)}
@@ -86,7 +77,7 @@ export function PricesView({ status, d, retry }) {
               </Group>
             )}
             {d.delivery.length > 0 && (
-              <Group title="Delivery" note="Delivery is worked out separately from the cake.">
+              <Group title="Delivery" note="Worked out separately from the cake.">
                 {d.delivery.map((x) => <Item key={x.area} name={x.area} price={x.price} />)}
               </Group>
             )}

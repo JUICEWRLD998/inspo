@@ -1,18 +1,9 @@
-@import "@fontsource/caprasimo/400.css";
 @import "@fontsource-variable/figtree/index.css";
 
-/* Neither Caprasimo nor Figtree has the naira sign (U+20A6), so it would fall back to a different system font on
-   every device. These two faces carry only that one character, from fonts that have it (heavy Noto Serif beside Caprasimo's heavy digits). Checked with fontkit. */
+/* Figtree has no naira sign (U+20A6), so it would fall back to a different system font on every device. This face carries
+   only that one character, from Inter, which has it (checked with fontkit). */
 @font-face {
-  font-family: "Naira Display";
-  src: url("../../node_modules/@fontsource/noto-serif/files/noto-serif-latin-ext-900-normal.woff2") format("woff2");
-  font-weight: 400;
-  font-display: swap;
-  unicode-range: U+20A6;
-}
-
-@font-face {
-  font-family: "Naira Body";
+  font-family: "Naira";
   src: url("../../node_modules/@fontsource-variable/inter/files/inter-latin-ext-wght-normal.woff2") format("woff2-variations");
   font-weight: 100 900;
   font-display: swap;

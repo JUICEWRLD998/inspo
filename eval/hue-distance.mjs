@@ -8,11 +8,11 @@ const far = deltaE76({ L: 0.3, C: 0.1, h: 30 }, { L: 0.8, C: 0.1, h: 200 });
 if (same >= 5 || far < 40) { console.error(`HUE MATHS BROKEN: near-identical ${same.toFixed(1)}, far ${far.toFixed(1)}`); process.exit(2); }
 console.log(`control ok: near-identical ΔE ${same.toFixed(1)}, far apart ΔE ${far.toFixed(1)}`);
 
-const ROLES = ["accent", "ok", "check", "danger", "foil", "blush"];
+const ROLES = ["accent", "ok", "check", "danger"];
 const SURFACES = ["paper", "paper-2", "card"];
 const t = readTokens();
 let failed = false;
-for (const scheme of ["light", "dark"]) {
+for (const scheme of ["light"]) {
   const p = t[scheme];
   for (let i = 0; i < ROLES.length; i++) for (let j = i + 1; j < ROLES.length; j++) {
     const d = deltaE76(p[ROLES[i]], p[ROLES[j]]);

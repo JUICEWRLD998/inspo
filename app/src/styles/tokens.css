@@ -1,32 +1,25 @@
-/* Design tokens for the studio (public site and maker console share them).
-   Derived from the cakes: pistachio paste ground, icing surface, cocoa ink, one raspberry accent (the CTA colour),
-   gold cake-board foil and blush buttercream as support hues. OKLCH. Every text/background pair is measured in
-   eval/contrast.mjs and every role-hue pair in eval/hue-distance.mjs, not eyeballed. */
+/* Design tokens (public site and maker console). A plain light theme: near-white ground, soft grey surfaces, dark ink and
+   one berry accent that is only ever the main button. Every text pair is measured in eval/contrast.mjs. */
 :root {
-  --paper: oklch(95.8% 0.028 135);
-  --paper-2: oklch(92% 0.038 135);
-  --card: oklch(98.8% 0.01 125);
-  --ink: oklch(26% 0.04 40);
-  --ink-2: oklch(42% 0.04 45);
-  --line: oklch(85% 0.045 130);
+  --paper: oklch(99% 0.004 80);
+  --paper-2: oklch(96.5% 0.008 80);
+  --card: oklch(100% 0 0);
+  --ink: oklch(24% 0.02 40);
+  --ink-2: oklch(45% 0.02 50);
+  --line: oklch(90% 0.008 70);
 
-  --accent: oklch(52% 0.2 8);
-  --accent-hover: oklch(45% 0.19 8);
-  --on-accent: oklch(99% 0.008 125);
+  --accent: oklch(50% 0.18 10);
+  --accent-hover: oklch(43% 0.18 10);
+  --on-accent: oklch(100% 0 0);
 
-  --ok: oklch(40% 0.09 155);
-  --ok-bg: oklch(91% 0.07 150);
-  --check: oklch(40% 0.08 75);
-  --check-bg: oklch(92% 0.1 90);
-  --danger: oklch(45% 0.17 38);
+  --ok: oklch(42% 0.09 155);
+  --ok-bg: oklch(94% 0.04 150);
+  --check: oklch(42% 0.09 70);
+  --check-bg: oklch(95% 0.06 90);
+  --danger: oklch(46% 0.17 28);
 
-  /* Support hues with a job each: foil = the docket's stamp and board, blush = buttercream surfaces */
-  --foil: oklch(80% 0.13 88);
-  --blush: oklch(92.5% 0.05 5);
-  --on-foil: oklch(26% 0.04 40); /* text on gold foil stays dark in both schemes */
-
-  --font-body: "Naira Body", "Figtree Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-display: "Naira Display", "Caprasimo", "Cooper Black", Georgia, serif;
+  --font-body: "Naira", "Figtree Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-body);
 
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -39,7 +32,7 @@
 
   --radius: 0.75rem;
   --radius-sm: 0.5rem;
-  --shadow: 0 1px 2px oklch(26% 0.04 40 / 0.08), 0 6px 18px oklch(26% 0.04 40 / 0.06);
+  --shadow: 0 1px 2px oklch(24% 0.02 40 / 0.06), 0 8px 24px oklch(24% 0.02 40 / 0.06);
 
   /* Mirrored in src/lib/motion.js. Change both together. */
   --dur-micro: 120ms;
@@ -47,28 +40,5 @@
   --dur-long: 420ms;
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --tap: 2.75rem;
-  color-scheme: light dark;
-  /* Read by the scorer from computed CSS: the page's macrostructure, so one build can be told from another. */
-  --macrostructure: Docket hero with open type sections;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --paper: oklch(21% 0.024 145);
-    --paper-2: oklch(25.5% 0.028 145);
-    --card: oklch(28% 0.024 140);
-    --ink: oklch(94% 0.02 130);
-    --ink-2: oklch(76% 0.03 130);
-    --line: oklch(37% 0.035 145);
-    --accent: oklch(72% 0.15 8);
-    --accent-hover: oklch(78% 0.14 8);
-    --on-accent: oklch(20% 0.03 145);
-    --ok: oklch(80% 0.1 150);
-    --ok-bg: oklch(31% 0.055 150);
-    --check: oklch(76% 0.13 72);
-    --check-bg: oklch(32% 0.06 65);
-    --danger: oklch(74% 0.14 28);
-    --foil: oklch(91% 0.1 100);
-    --blush: oklch(34% 0.05 5);
-  }
+  color-scheme: light;
 }

@@ -1,8 +1,8 @@
 .notice {
   margin: 0;
   padding: 0.5rem var(--gutter, 1rem);
-  background: var(--blush);
-  color: var(--ink);
+  background: var(--paper-2);
+  color: var(--ink-2);
   font-size: 0.875rem;
   text-align: center;
   text-wrap: balance;
@@ -15,17 +15,18 @@
   gap: 1rem;
   width: min(100% - 2 * var(--gutter, 1rem), 72rem);
   margin-inline: auto;
-  padding-block: 1rem;
+  padding-block: 0.75rem;
 }
 
 .brand {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  color: var(--ink);
-  text-decoration: none;
-  min-height: var(--tap);
   display: inline-flex;
   align-items: center;
+  min-height: var(--tap);
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-decoration: none;
 }
 
 .nav {
@@ -41,7 +42,7 @@
   min-height: var(--tap);
   color: var(--ink-2);
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 0.9375rem;
 }
 
@@ -49,24 +50,16 @@
   .anchor:hover,
   .signin:hover {
     color: var(--ink);
-    text-decoration: underline;
-    text-underline-offset: 0.25em;
   }
 }
 
-/* Phones: the page is short, so only the sign-in link stays in the bar. */
 @media (max-width: 48rem) {
   .anchor {
     display: none;
   }
 }
 
-/* Very narrow phones: one line each for the brand and the sign-in link. */
 @media (max-width: 24rem) {
-  .top {
-    gap: 0.5rem;
-  }
-
   .brand {
     font-size: 1rem;
   }

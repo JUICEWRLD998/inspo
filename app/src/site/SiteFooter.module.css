@@ -1,5 +1,5 @@
 .footer {
-  background: var(--paper-2);
+  border-top: 1px solid var(--line);
   padding-block: var(--space-6);
 }
 
@@ -20,8 +20,8 @@
 }
 
 .brand {
-  font-family: var(--font-display);
-  font-size: 1.25rem !important;
+  font-size: 1.0625rem !important;
+  font-weight: 700;
   color: var(--ink) !important;
 }
 
