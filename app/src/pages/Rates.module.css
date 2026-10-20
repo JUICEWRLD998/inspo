@@ -78,13 +78,27 @@
   color: var(--danger);
 }
 
+/* Two short fields fit beside a small remove button even on a phone. */
+.rows .row[data-cols="2"] {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+}
+
+.rows .row[data-cols="2"] .remove {
+  grid-column: auto;
+  justify-self: auto;
+  width: var(--tap);
+  padding: 0;
+  font-size: 1.5rem;
+}
+
 @media (min-width: 40rem) {
-  .rows .row {
-    grid-template-columns: repeat(var(--cols, 2), minmax(0, 1fr)) auto;
+  .rows .row[data-cols="4"] {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) auto;
   }
 
-  .remove {
+  .rows .row[data-cols="4"] .remove {
     grid-column: auto;
+    justify-self: auto;
   }
 }
 

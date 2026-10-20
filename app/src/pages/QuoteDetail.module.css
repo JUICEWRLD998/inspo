@@ -161,6 +161,25 @@
   min-width: 0;
 }
 
+.priceWrap {
+  position: relative;
+  display: block;
+}
+
+.priceWrap .price {
+  width: 100%;
+  padding-left: 1.75rem;
+}
+
+.cur {
+  position: absolute;
+  left: var(--space-3);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--ink-2);
+  pointer-events: none;
+}
+
 .price {
   text-align: right;
   font-variant-numeric: tabular-nums;

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { studioApi, useStudio } from "../api/studio";
 import { DECORATION_TYPES, FINISHES, fromForm, toForm } from "../lib/rates";
+import { currencySymbol } from "../lib/money";
 import { Badge, Button, Field } from "../components/ui";
 import styles from "./Rates.module.css";
 
@@ -14,9 +15,9 @@ function Rows({ title, hint, rows, onChange, blank, cols = 2, children }) {
       {hint && <p className={styles.hint}>{hint}</p>}
       <div className={styles.rows}>
         {rows.map((r, i) => (
-          <div className={styles.row} style={{ "--cols": cols }} key={i}>
+          <div className={styles.row} data-cols={cols} key={i}>
             {children(r, (patch) => set(i, patch), i)}
-            <button type="button" className={styles.remove} aria-label={`Remove row ${i + 1} of ${title}`} onClick={() => onChange(rows.filter((_, j) => j !== i))}>Remove</button>
+            <button type="button" className={styles.remove} aria-label={`Remove row ${i + 1} of ${title}`} onClick={() => onChange(rows.filter((_, j) => j !== i))}>{cols === 2 ? "×" : "Remove"}</button>
           </div>
         ))}
       </div>
@@ -31,6 +32,7 @@ export default function Rates() {
   const [errors, setErrors] = useState([]);
   const [saved, setSaved] = useState(false);
   const [busy, setBusy] = useState(false);
+  const sym = currencySymbol(rateCard?.currency ?? "NGN");
 
   useEffect(() => {
     if (rateCard) setForm(toForm(rateCard));
@@ -74,7 +76,7 @@ export default function Rates() {
         {(r, set) => (
           <>
             <Field label="Inches"><input inputMode="decimal" value={r.diameter} onChange={(e) => set({ diameter: e.target.value })} /></Field>
-            <Field label="Price"><input inputMode="decimal" value={r.price} onChange={(e) => set({ price: e.target.value })} /></Field>
+            <Field label={`Price (${sym})`}><input inputMode="decimal" value={r.price} onChange={(e) => set({ price: e.target.value })} /></Field>
           </>
         )}
       </Rows>
@@ -87,21 +89,21 @@ export default function Rates() {
                 {FINISHES.map((f) => <option key={f} value={f}>{label(f)}</option>)}
               </select>
             </Field>
-            <Field label="Extra"><input inputMode="decimal" value={r.price} onChange={(e) => set({ price: e.target.value })} /></Field>
+            <Field label={`Extra (${sym})`}><input inputMode="decimal" value={r.price} onChange={(e) => set({ price: e.target.value })} /></Field>
           </>
         )}
       </Rows>
 
       <fieldset className={styles.group}>
         <legend>Tall cake</legend>
-        <Field label="Extra for a tall tier"><input inputMode="decimal" value={form.tall} onChange={(e) => patch({ tall: e.target.value })} /></Field>
+        <Field label={`Extra for a tall tier (${sym})`}><input inputMode="decimal" value={form.tall} onChange={(e) => patch({ tall: e.target.value })} /></Field>
       </fieldset>
 
       <Rows title="Flavours" hint="The customer is offered exactly these. Use 0 for included." rows={form.flavours} onChange={(flavours) => patch({ flavours })} blank={{ key: "", price: "0" }}>
         {(r, set) => (
           <>
             <Field label="Flavour"><input value={r.key} onChange={(e) => set({ key: e.target.value })} /></Field>
-            <Field label="Extra"><input inputMode="decimal" value={r.price} onChange={(e) => set({ price: e.target.value })} /></Field>
+            <Field label={`Extra (${sym})`}><input inputMode="decimal" value={r.price} onChange={(e) => set({ price: e.target.value })} /></Field>
           </>
         )}
       </Rows>
@@ -120,8 +122,8 @@ export default function Rates() {
                 <option value="flat">once</option>
               </select>
             </Field>
-            <Field label="Price"><input inputMode="decimal" value={r.price} onChange={(e) => set({ price: e.target.value })} /></Field>
-            <Field label="Top price"><input inputMode="decimal" placeholder="optional" value={r.max} onChange={(e) => set({ max: e.target.value })} /></Field>
+            <Field label={`Price (${sym})`}><input inputMode="decimal" value={r.price} onChange={(e) => set({ price: e.target.value })} /></Field>
+            <Field label={`Top price (${sym})`}><input inputMode="decimal" placeholder="optional" value={r.max} onChange={(e) => set({ max: e.target.value })} /></Field>
           </>
         )}
       </Rows>
@@ -138,7 +140,7 @@ export default function Rates() {
         {(r, set) => (
           <>
             <Field label="Area"><input value={r.key} onChange={(e) => set({ key: e.target.value })} /></Field>
-            <Field label="From"><input inputMode="decimal" value={r.price} onChange={(e) => set({ price: e.target.value })} /></Field>
+            <Field label={`From (${sym})`}><input inputMode="decimal" value={r.price} onChange={(e) => set({ price: e.target.value })} /></Field>
           </>
         )}
       </Rows>

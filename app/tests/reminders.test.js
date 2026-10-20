@@ -16,7 +16,8 @@ const quote = (over = {}) => ({ id: "q1", status: "sent", ...over });
 describe("deposit reminders", () => {
   it("asks for an unpaid deposit once the order is a day old, with her payment note and the amount", () => {
     const [r] = dueReminders({ ...ctx, orders: [order()], quotes: [quote()], now: NOW });
-    expect(r).toMatchObject({ kind: "deposit", id: "deposit:o1", phone: "2348000000001" });
+    expect(r).toMatchObject({ kind: "deposit", id: "deposit:o1", phone: "2348000000001", title: "Ada" });
+    expect(r.detail).toMatch(/₦34,300 deposit not received · for Tuesday 10 November/);
     expect(r.message).toContain("₦34,300");
     expect(r.message).toContain("70% deposit");
     expect(r.message).toContain("Pay to the account on my status.");
@@ -71,7 +72,8 @@ describe("quotes waiting for the maker", () => {
   it("lists a pending quote older than 24 hours, with no message to send", () => {
     const [r] = dueReminders({ ...ctx, orders: [], quotes: [quote({ id: "q9", status: "pending_approval", customer_id: "c2", created_date: ago(30) })], now: NOW });
     expect(r).toMatchObject({ kind: "answer", id: "answer:q9", phone: "2348000000002", message: null });
-    expect(r.detail).toMatch(/30 hours|1 day/);
+    expect(r.title).toBe("A customer");
+    expect(r.detail).toMatch(/Waiting for your price · 30 hours/);
   });
 
   it("ignores a fresh pending quote and answered ones", () => {

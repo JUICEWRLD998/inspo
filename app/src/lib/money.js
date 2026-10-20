@@ -15,3 +15,13 @@ export function toMajorString(minor) {
   const frac = minor % 100;
   return frac === 0 ? String(whole) : `${whole}.${String(frac).padStart(2, "0")}`;
 }
+
+// The narrow symbol for a currency code, e.g. NGN -> "₦". Falls back to the code if the runtime does not know it.
+export function currencySymbol(code) {
+  try {
+    return new Intl.NumberFormat("en", { style: "currency", currency: code, currencyDisplay: "narrowSymbol" })
+      .formatToParts(0).find((p) => p.type === "currency")?.value ?? code;
+  } catch {
+    return code;
+  }
+}

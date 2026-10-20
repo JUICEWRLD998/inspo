@@ -30,7 +30,7 @@ await page.waitForTimeout(400);
 const text = await page.innerText("main");
 const due = (t) => Number((t.match(/to send today · (\d+)/i) ?? [])[1]);
 log(due(text) === 2 + pending, `${2 + pending} things due after two days: pickup, deposit and ${pending} waiting quote(s) (page says ${due(text)})`);
-log(/pickup tomorrow/i.test(text) && /deposit not received/i.test(text) && /waiting for a price/i.test(text), "one of each kind is listed");
+log(/pickup tomorrow/i.test(text) && /deposit not received/i.test(text) && /waiting for your price/i.test(text), "one of each kind is listed");
 await page.screenshot({ path: "eval/shots/today-390.png", fullPage: true });
 
 // the pickup message carries the balance, deposit chase carries the deposit
@@ -62,6 +62,6 @@ log(orders.find((o) => o.id === paid.id).reminders_sent?.[0]?.kind === "pickup",
 await page.reload({ waitUntil: "networkidle" });
 await page.waitForSelector("text=To send today");
 log(due(await page.innerText("main")) === pending, `after a reload only the ${pending} waiting quote(s) remain`);
-const open = page.locator("li", { hasText: "waiting for a price" }).first().getByRole("link", { name: "Open the quote" });
+const open = page.locator("li", { hasText: "waiting for your price" }).first().getByRole("link", { name: "Open the quote" });
 log(/\/desk\/.+/.test(await open.getAttribute("href")), "a waiting quote links to its page");
 await browser.close();

@@ -87,9 +87,29 @@
   min-height: var(--tap);
   display: flex;
   align-items: center;
+  gap: var(--space-2);
   cursor: pointer;
   color: var(--ink-2);
   font-weight: 600;
+  list-style: none;
+}
+
+.preview summary::-webkit-details-marker {
+  display: none;
+}
+
+.preview summary::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform 160ms var(--ease-out);
+}
+
+.preview[open] summary::before {
+  transform: rotate(45deg);
 }
 
 .preview p {
@@ -101,11 +121,23 @@
   overflow-wrap: anywhere;
 }
 
+/* Phones: the main action is full width, the two quiet ones share the row beneath it. */
 .actions {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: var(--space-2);
-  align-items: center;
+}
+
+.actions > :first-child {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 40rem) {
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
 }
 
 .primary {

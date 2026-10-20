@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { studioApi, useStudio } from "../api/studio";
 import { addLine, canApprove, customerMessage, editLine, removeLine, verifyAgainstEngine, waLink } from "../lib/quotes";
 import { explainCheck } from "../lib/checks";
-import { toMajorString, toMinor } from "../lib/money";
+import { currencySymbol, toMajorString, toMinor } from "../lib/money";
 import { display } from "../../base44/functions/priceQuote/pricing.js";
 import { Badge, Button } from "../components/ui";
 import styles from "./QuoteDetail.module.css";
@@ -12,7 +12,7 @@ const PRICE_HELP = "Enter a price like 42000 or 42,000.50";
 const dateLabel = (iso) =>
   iso ? new Date(iso).toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }) : "No date yet";
 
-function PriceInput({ value, disabled, onCommit, label }) {
+function PriceInput({ value, disabled, onCommit, label, symbol }) {
   const [text, setText] = useState(toMajorString(value));
   const [bad, setBad] = useState(false);
   const commit = () => {
@@ -26,6 +26,8 @@ function PriceInput({ value, disabled, onCommit, label }) {
     else setText(toMajorString(value));
   };
   return (
+    <span className={styles.priceWrap}>
+      <span className={styles.cur} aria-hidden="true">{symbol}</span>
     <input
       className={`${styles.price} ${bad ? styles.bad : ""}`}
       inputMode="decimal"
@@ -38,6 +40,7 @@ function PriceInput({ value, disabled, onCommit, label }) {
       onBlur={commit}
       onKeyDown={(e) => e.key === "Enter" && e.currentTarget.blur()}
     />
+    </span>
   );
 }
 
@@ -219,6 +222,7 @@ export default function QuoteDetail({ quote: initial, customer, onChanged }) {
                     value={l.unit_price}
                     disabled={locked}
                     label={`Price for ${l.label}`}
+                    symbol={currencySymbol(cur)}
                     onCommit={(v) => edit((q) => editLine(q, i, { unit_price: v }, new Date().toISOString()))}
                   />
                   {!locked && quote.line_items.length > 1 && (
@@ -234,7 +238,7 @@ export default function QuoteDetail({ quote: initial, customer, onChanged }) {
           {!locked && (
             <div className={styles.add}>
               <input aria-label="Extra item name" placeholder="Extra item" value={extra.label} onChange={(e) => setExtra({ ...extra, label: e.target.value })} />
-              <input aria-label="Extra item price" placeholder="Price" inputMode="decimal" value={extra.price} onChange={(e) => setExtra({ ...extra, price: e.target.value })} />
+              <input aria-label="Extra item price" placeholder={`Price (${currencySymbol(cur)})`} inputMode="decimal" value={extra.price} onChange={(e) => setExtra({ ...extra, price: e.target.value })} />
               <Button variant="quiet" type="button" onClick={addExtra}>Add</Button>
             </div>
           )}

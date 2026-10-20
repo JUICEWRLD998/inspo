@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { toMinor, toMajorString } from "../src/lib/money.js";
+import { toMinor, toMajorString, currencySymbol } from "../src/lib/money.js";
 
 describe("toMinor", () => {
   it("turns what a person types into whole minor units", () => {
@@ -39,5 +39,13 @@ describe("toMajorString", () => {
   it("is empty for a missing value", () => {
     expect(toMajorString(null)).toBe("");
     expect(toMajorString(undefined)).toBe("");
+  });
+});
+
+describe("currencySymbol", () => {
+  it("gives the short symbol, and the code when it is unknown", () => {
+    expect(currencySymbol("NGN")).toBe("₦");
+    expect(currencySymbol("USD")).toBe("$");
+    expect(currencySymbol("not a code")).toBe("not a code");
   });
 });
