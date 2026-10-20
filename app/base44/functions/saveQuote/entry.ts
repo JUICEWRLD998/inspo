@@ -1,5 +1,6 @@
 import { createClientFromRequest } from "npm:@base44/sdk";
 import { priceQuote } from "./pricing.js";
+import { compact } from "./compact.js";
 
 // The agent's only write path. It prices on the server from the stored rate card, saves the Quote, and links
 // the WhatsApp sender, so the model never supplies a number and never touches the Quote entity directly.
@@ -37,7 +38,7 @@ export default async function (req: Request): Promise<Response> {
       customerId = null; // an unlinked quote is still a valid quote; the maker sees "customer unknown"
     }
 
-    const quote = await db.entities.Quote.create({
+    const quote = await db.entities.Quote.create(compact({
       status: "pending_approval",
       customer_id: customerId,
       image_url: image_url ?? null,
@@ -51,7 +52,7 @@ export default async function (req: Request): Promise<Response> {
       flavour: flavour ?? null,
       delivery: delivery ?? null,
       edit_log: [],
-    });
+    }));
 
     return Response.json({
       saved: true,
