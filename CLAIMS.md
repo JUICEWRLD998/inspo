@@ -22,4 +22,4 @@ Each README claim, and the command that reproduces it.
 | Test quotes and their orders are never counted in the public numbers or the ledger | `npx vitest run tests/stats.test.js` (from `app/`) |
 | A real studio's public page shows none of the sample copy; a sample studio still does | `node eval/browser/profile.mjs` (planted sample control) |
 
-Not claimed yet: any real-run count (`eval/live.json` does not exist), scheduled or automatic sending of anything, accuracy against a real baker's orders, extraction accuracy on cakes, price error against her real orders, any WhatsApp behaviour.
+Not claimed yet: any real-run count (`eval/live.json` is all zeros: no real maker yet), scheduled or automatic sending of anything, accuracy against a real baker's orders, extraction accuracy on cakes, price error against her real orders, any WhatsApp behaviour.

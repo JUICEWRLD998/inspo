@@ -1,0 +1,15 @@
+{
+  "asOf": "2026-10-21T07:32:50.331Z",
+  "quotesReceived": 0,
+  "quotesAnswered": 0,
+  "approvals": 0,
+  "declined": 0,
+  "medianReplyMinutes": null,
+  "editRate": null,
+  "needsCheckRate": null,
+  "ordersCreated": 0,
+  "depositsConfirmed": 0,
+  "excludedTestQuotes": 2,
+  "makerDataOrigin": "sample",
+  "note": "The studio is not marked real, so none of these counts is adoption evidence."
+}

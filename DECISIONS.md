@@ -441,3 +441,7 @@ local browser suite incl. `eval/browser/profile.mjs`):
 **Risks, stated plainly:** the plan's cutoff for a real maker's yes is 2026-10-22 12:00 local and the deadline is
 2026-10-25 23:59 PDT; integration credits are low and the Contra coupon was never found; the WhatsApp flow was not
 re-run after the `saveQuote` redesign; the signed-in console is unverified on the deployed URL.
+
+- Correction (same day): after deploying, `eval/live.mjs` was run once against production. `eval/live.json` now exists
+  and reads 0 real quotes, 2 excluded test quotes (the owner's phone test and mine, marked `is_test` through
+  `exec --privileged`), studio `sample`. That is the true state, not a pass.
