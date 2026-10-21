@@ -1,15 +1,22 @@
 import { createClientFromRequest } from "npm:@base44/sdk";
 import { priceQuote } from "./pricing.js";
 import { compact } from "./compact.js";
+import { checkQuoteInput, tooManyRecent } from "./guard.js";
 
 // The agent's only write path. It prices on the server from the stored rate card, saves the Quote, and links
 // the WhatsApp sender, so the model never supplies a number and never touches the Quote entity directly.
 export default async function (req: Request): Promise<Response> {
   try {
     const base44 = createClientFromRequest(req);
-    const { features, image_url, event_date, flavour, delivery, rate_card_id, servings } = await req.json();
-    if (!features) return Response.json({ error: "features required" }, { status: 400 });
+    const body = await req.json();
+    const input = checkQuoteInput(body);
+    if (!input.ok) return Response.json({ error: input.errors.join("; ") }, { status: 400 });
+    const { features, image_url, event_date, flavour, delivery, rate_card_id, servings } = body;
     const db = base44.asServiceRole;
+
+    // This endpoint answers unauthenticated callers, so cap how fast quotes can pile into the maker's Desk.
+    const recent = await db.entities.Quote.list("-created_date", 50);
+    if (tooManyRecent(recent, Date.now())) return Response.json({ error: "too many quotes right now, try again later" }, { status: 429 });
 
     const rateCard = await db.entities.RateCard.get(rate_card_id);
     if (!rateCard) return Response.json({ error: "rate card not found" }, { status: 404 });
@@ -43,7 +50,7 @@ export default async function (req: Request): Promise<Response> {
     let savedImage = image_url ?? null;
     if (image_url) {
       try {
-        const res = await fetch(image_url);
+        const res = await fetch(image_url, { redirect: "error" });
         const type = res.headers.get("content-type") ?? "";
         const bytes = new Uint8Array(await res.arrayBuffer());
         if (res.ok && type.startsWith("image/") && bytes.length > 0 && bytes.length < 10_000_000) {

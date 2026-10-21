@@ -21,5 +21,6 @@ Each README claim, and the command that reproduces it.
 | Role hues are at least dE 20 apart and every text pair is at least 4.5:1 | `node eval/hue-distance.mjs` and `node eval/contrast.mjs` |
 | Test quotes and their orders are never counted in the public numbers or the ledger | `npx vitest run tests/stats.test.js` (from `app/`) |
 | A real studio's public page shows none of the sample copy; a sample studio still does | `node eval/browser/profile.mjs` (planted sample control) |
+| `saveQuote` and `extractFeatures` refuse a non-WhatsApp-media photo link and malformed input | `npx vitest run tests/guard.test.js`; live: POST `{"image_url":"https://169.254.169.254/x"}` to `/api/apps/<id>/functions/extractFeatures` returns 400 |
 
 Not claimed yet: any real-run count (`eval/live.json` is all zeros: no real maker yet), scheduled or automatic sending of anything, accuracy against a real baker's orders, extraction accuracy on cakes, price error against her real orders, any WhatsApp behaviour.

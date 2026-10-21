@@ -1,5 +1,6 @@
 import { createClientFromRequest } from "npm:@base44/sdk";
 import { FEATURE_SCHEMA, normalise } from "./schema.js";
+import { checkImageUrl } from "./guard.js";
 
 const PROMPT = `You describe a photo of a cake a customer wants made. Report only what is visible:
 tiers (estimate each diameter in inches from proportions; a tall tier is clearly taller than wide),
@@ -10,13 +11,14 @@ NEVER mention prices, costs or money. If the image is not a cake, or you cannot 
 export default async function (req: Request): Promise<Response> {
   try {
     const base44 = createClientFromRequest(req);
-    const { image_url, model } = await req.json();
+    const { image_url } = await req.json();
     if (!image_url) return Response.json({ error: "image_url required" }, { status: 400 });
+    const guard = checkImageUrl(image_url);
+    if (!guard.ok) return Response.json({ error: guard.reason }, { status: 400 });
     const raw = await base44.asServiceRole.integrations.Core.InvokeLLM({
       prompt: PROMPT,
       file_urls: [image_url],
       response_json_schema: FEATURE_SCHEMA,
-      ...(model ? { model } : {}),
     });
     return Response.json(normalise(typeof raw === "string" ? JSON.parse(raw) : raw));
   } catch (error) {

@@ -15,12 +15,14 @@ maker's own rate card. She approves with one tap, and the order lands on her bak
 | Pricing core `priceQuote` (tests, deployed function) | LIVE, tested with a test-only rate card |
 | `extractFeatures` (photo to features, deployed function) | LIVE, plumbing verified on a non-cake control; runs on real cake photos return schema-valid features; accuracy NOT MEASURED |
 | Entities: Maker, RateCard, Customer, Quote, Order | LIVE |
-| WhatsApp desk (app agent) | LIVE for one test conversation: photo to pending quote works; customer record NOT created |
+| WhatsApp desk (app agent) | LIVE for test conversations from the owner's phone: photo to priced pending quote, photo re-hosted, customer record linked (checked 2026-10-21). Customers message Base44's shared WhatsApp number through the site button. Linking by "most recent conversation" is NOT verified with two customers at once |
+| Intake guards on `saveQuote` and `extractFeatures` (both answer unauthenticated calls) | LIVE: photo link must be `https://media.base44.com`, inputs validated, 30 quotes per hour cap, no model override |
 | Maker console (`/desk`, `/orders`, `/rates`, `/settings`) | LIVE, owner sign-in only. Verified in a browser against the local backend; not yet exercised signed in on the live URL |
 | Reminders and alerts | LIVE as a Today screen (one tap each) and an opt-in new-quote email. NOT scheduled: Workflows needs a paid Base44 plan |
 | Public site (`/`): hero with photo and quote, how it works, live price list, FAQ, WhatsApp CTA | LIVE, on SAMPLE data, labelled as such. No gallery: there is no real maker |
-| Real run (P7) | NOT STARTED. Tooling is ready (test-quote exclusion, `eval/live.mjs`, Maker-driven site, `docs/GO-LIVE.md`) but there is no real maker, so `eval/live.json` holds honest zeros (0 real quotes, 2 test quotes excluded, studio still sample) and no adoption number is claimed |
+| Real run (P7) | NOT LIVE. Tooling is ready (test-quote exclusion, `eval/live.mjs`, Maker-driven site, `docs/GO-LIVE.md`) but there is no real maker, so `eval/live.json` holds honest zeros (0 real quotes, 2 test quotes excluded, studio still sample) and no adoption number is claimed |
 | Pricing eval | LIVE on SAMPLE data only (11/15 exact; circular, not accuracy). Real-orders eval NEXT |
+| Console signed in on the live URL | NOT LIVE (unverified): needs the owner's own browser |
 
 **No real maker exists yet.** The rate card and the 15 past orders in `data/sample` are SAMPLE DATA invented in a ChatGPT conversation (see `data/sample/README.md`); they are labelled sample everywhere they appear and are not a real bakery, real customers or real sales.
 
@@ -32,7 +34,7 @@ node eval/run.mjs                        # 15 sample orders through the pricing 
 node eval/contrast.mjs                   # WCAG ratios for every colour pair, both schemes
 node eval/anon-access.mjs <url> <appId>  # an anonymous visitor must not read quotes, customers or orders
 node eval/hue-distance.mjs              # role hues at least dE 20 apart; accent 4x the chroma of any surface
-node eval/browser/qa.mjs | journey.mjs | states.mjs | widths.mjs   # the landing page, with planted controls        # 95 tests: pricing, the sample rate card, extraction, quote editing and approval, money, rates form, calendar, reminders
+node eval/browser/qa.mjs | journey.mjs | states.mjs | widths.mjs   # the landing page, with planted controls        # 114 tests: pricing, the sample rate card, extraction, quote editing and approval, money, rates form, calendar, reminders
 ```
 
 Pricing contract, from `app/tests/pricing.test.js`: every amount is a positive integer; the line items sum to the

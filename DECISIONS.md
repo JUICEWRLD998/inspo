@@ -445,3 +445,33 @@ re-run after the `saveQuote` redesign; the signed-in console is unverified on th
 - Correction (same day): after deploying, `eval/live.mjs` was run once against production. `eval/live.json` now exists
   and reads 0 real quotes, 2 excluded test quotes (the owner's phone test and mine, marked `is_test` through
   `exec --privileged`), studio `sample`. That is the true state, not a pass.
+
+## 2026-10-21: P8 hardening: checklist, each item run
+
+**What was actually wrong (VERIFIED live, unauthenticated POST to the deployed functions):**
+`saveQuote` and `extractFeatures` answer anyone (400 from our own code, not 401). So a stranger could (a) make the
+server fetch any URL and re-upload it (`saveQuote` `fetch(image_url)`, SSRF), (b) fill the maker's Desk with junk
+quotes, (c) spend integration credits through `extractFeatures`, including by passing a `model` of their choice.
+Fix, structural and shared by both functions (`saveQuote/guard.js`, byte-identical copy in `extractFeatures/`, pinned
+by a test): the photo link must be `https://media.base44.com` with no credentials or port (that is the host of every
+real WhatsApp link we stored), redirects are refused, inputs are validated and every problem is listed, a cap of 30
+quotes per rolling hour, and the `model` override is removed. Tests first (red: module missing), then 114/114 green.
+Live after deploy: link-local, evil host, http and junk inputs all 400; a control (good host, unknown rate card)
+gets past the guard (500 from the entity lookup, so the guard is not blocking everything).
+
+| # | Item | Result |
+|---|---|---|
+| 1 | Pre-submit grep `mock\|fake\|dummy\|lorem\|0x0000\|picsum\|randomuser\|example.com` | 6 hits, all prose or comments ("never faked", rule text); no code hit. The test quote with `example.invalid` was mine and is marked `is_test` |
+| 2 | Demo-seam audit: where data enters | Only paths in: the agent (via `saveQuote`) and the maker console. No seed script is a product path. Sample data is labelled `data_origin: sample`. The proof strip and ledger share `computeLive`/`computeStats` |
+| 3 | Anonymous read of private entities | `eval/anon-access.mjs` run before; Quote/Customer/Order private, RateCard control public |
+| 4 | Unauthenticated functions | Fixed as above. `publicStats` is public by design (counts only). `priceQuote` is unauthenticated but writes nothing and only reads the public rate card |
+| 5 | Judge's path on the live URL, 375 px mobile, tap CTA | Tap opens `api.whatsapp.com/send/?phone=17034571882...` with an activation text: Base44's shared number, not ours. Sending a photo and reading the reply was done by the owner on his phone (new quote logged with a customer link at 08:01 UTC) |
+| 6 | One status vocabulary | README table uses LIVE / NEXT / NOT LIVE; stale rows corrected in place |
+| 7 | Adversarial pass (`attacker`) | Run by me, inline, because the standing rule forbids subagents. It is NOT an independent attacker and is no substitute for one |
+
+**Remaining limitations, plainly:** (1) the customer link takes the most recent conversation, so with two customers
+messaging at once a quote could be attached to the wrong phone. Not measured; do not rely on it past one customer.
+(2) The hourly cap is global, so a flood can block real quotes for an hour; it protects the Desk, not availability.
+(3) The functions are still unauthenticated; the guards limit what they can do, they do not prove who is calling.
+(4) Console on the live URL still needs the owner's own browser. (5) The old `eval` scripts that call
+`extractFeatures` with non-WhatsApp URLs (`capture-demo-quote.mjs`, spike A) are refused now by design.
