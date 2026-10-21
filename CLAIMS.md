@@ -19,5 +19,7 @@ Each README claim, and the command that reproduces it.
 | The landing page has zero axe violations, LCP is the hero photo and CLS is under 0.1, in light and dark | `node eval/browser/qa.mjs` (add `LANDING_URL` and `PW_PROXY` for the deployed page) |
 | No element overflows at 320, 375, 414, 768, 1024, 1280, 1440 and 1920 px | `node eval/browser/widths.mjs` |
 | Role hues are at least dE 20 apart and every text pair is at least 4.5:1 | `node eval/hue-distance.mjs` and `node eval/contrast.mjs` |
+| Test quotes and their orders are never counted in the public numbers or the ledger | `npx vitest run tests/stats.test.js` (from `app/`) |
+| A real studio's public page shows none of the sample copy; a sample studio still does | `node eval/browser/profile.mjs` (planted sample control) |
 
-Not claimed yet: scheduled or automatic sending of anything, accuracy against a real baker's orders, extraction accuracy on cakes, price error against her real orders, any WhatsApp behaviour.
+Not claimed yet: any real-run count (`eval/live.json` does not exist), scheduled or automatic sending of anything, accuracy against a real baker's orders, extraction accuracy on cakes, price error against her real orders, any WhatsApp behaviour.

@@ -19,6 +19,7 @@ maker's own rate card. She approves with one tap, and the order lands on her bak
 | Maker console (`/desk`, `/orders`, `/rates`, `/settings`) | LIVE, owner sign-in only. Verified in a browser against the local backend; not yet exercised signed in on the live URL |
 | Reminders and alerts | LIVE as a Today screen (one tap each) and an opt-in new-quote email. NOT scheduled: Workflows needs a paid Base44 plan |
 | Public site (`/`): hero with photo and quote, how it works, live price list, FAQ, WhatsApp CTA | LIVE, on SAMPLE data, labelled as such. No gallery: there is no real maker |
+| Real run (P7) | NOT STARTED. Tooling is ready (test-quote exclusion, `eval/live.mjs`, Maker-driven site, `docs/GO-LIVE.md`) but there is no real maker, so `eval/live.json` does not exist and no adoption number is claimed |
 | Pricing eval | LIVE on SAMPLE data only (11/15 exact; circular, not accuracy). Real-orders eval NEXT |
 
 **No real maker exists yet.** The rate card and the 15 past orders in `data/sample` are SAMPLE DATA invented in a ChatGPT conversation (see `data/sample/README.md`); they are labelled sample everywhere they appear and are not a real bakery, real customers or real sales.
@@ -31,7 +32,7 @@ node eval/run.mjs                        # 15 sample orders through the pricing 
 node eval/contrast.mjs                   # WCAG ratios for every colour pair, both schemes
 node eval/anon-access.mjs <url> <appId>  # an anonymous visitor must not read quotes, customers or orders
 node eval/hue-distance.mjs              # role hues at least dE 20 apart; accent 4x the chroma of any surface
-node eval/browser/qa.mjs | journey.mjs | states.mjs | widths.mjs   # the landing page, with planted controls        # 88 tests: pricing, the sample rate card, extraction, quote editing and approval, money, rates form, calendar, reminders
+node eval/browser/qa.mjs | journey.mjs | states.mjs | widths.mjs   # the landing page, with planted controls        # 95 tests: pricing, the sample rate card, extraction, quote editing and approval, money, rates form, calendar, reminders
 ```
 
 Pricing contract, from `app/tests/pricing.test.js`: every amount is a positive integer; the line items sum to the

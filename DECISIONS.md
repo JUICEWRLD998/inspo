@@ -417,3 +417,27 @@ reading of the page.
 **Next, in order:** (1) he sends 3 real cake photos (or the maker's) so Spike A gets a positive run; (2) Spike B: the
 `inspo_desk` agent connected to WhatsApp, tested from his phone; (3) the maker's rate card replaces the fixture;
 (4) the eval harness `eval/run.mjs` once the past orders exist.
+
+## 2026-10-21: P7 preparation (the real run itself has NOT started)
+
+**Exit check: NOT PASSED.** `eval/live.json` needs dated counts of real activity from a real maker. There is no
+real maker and no real customer, so there is nothing true to write. Running the ledger against the current data would
+count only our own tests.
+
+What was built so the first real week is measurable and honest (VERIFIED by `npx vitest run`, 95 tests, and the
+local browser suite incl. `eval/browser/profile.mjs`):
+- `Quote.is_test` (maker toggle in the quote detail, "Test" badge on the Desk list). `computeStats` and the new
+  `computeLive` (`publicStats/stats.js`) never count a test quote or the orders made from it; the ledger reports how
+  many were left out. Rates are `null`, not 0, when there is nothing to divide by.
+- `eval/live.mjs` (run with `base44 exec --privileged`) writes `eval/live.json`; it adds a note when the studio is
+  not marked real. The proof strip and the ledger share one counting function.
+- The public page follows the Maker record (`lib/studioProfile.js`): brand, baker's name, sample notice, demo quote
+  and photo. A real studio shows none of the sample copy. Settings has a "Go live" switch that sets `data_origin`.
+- The probe with a planted sample control found a real fault: `describeRates.js` hard-coded "Aminat" in the rush
+  text. Fixed (takes the baker's name). Also fixed a layout shift the first version of the change caused (CLS 0.29)
+  by reserving the hero and notice space until the Maker record loads.
+- `docs/GO-LIVE.md` has the onboarding steps.
+
+**Risks, stated plainly:** the plan's cutoff for a real maker's yes is 2026-10-22 12:00 local and the deadline is
+2026-10-25 23:59 PDT; integration credits are low and the Contra coupon was never found; the WhatsApp flow was not
+re-run after the `saveQuote` redesign; the signed-in console is unverified on the deployed URL.
