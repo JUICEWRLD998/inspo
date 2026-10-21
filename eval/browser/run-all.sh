@@ -11,6 +11,7 @@ sleep 2
 for i in $(seq 1 40); do curl -s --noproxy '*' -o /dev/null localhost:5173/ && break; sleep 1; done
 PHOTOS="${PHOTOS:?set PHOTOS}" npx -y base44@latest exec --local < ../eval/seed-local.mjs 2>&1 | grep -e seeded -e rror
 cd ..
+node eval/browser/profile.mjs
 node eval/browser/desk.mjs
 node eval/browser/screens.mjs
 node eval/browser/today.mjs

@@ -42,6 +42,7 @@ export const studioApi = {
     base44.entities.Quote.update(quote.id, {
       line_items: quote.line_items, total: quote.total, edit_log: quote.edit_log,
     }),
+  setQuoteTest: (id, is_test) => base44.entities.Quote.update(id, { is_test }),
   declineQuote: (id, now) => base44.entities.Quote.update(id, { status: "declined", answered_at: now }),
   updateOrder: (id, data) => base44.entities.Order.update(id, data),
   logReminder: (order, reminders_sent) => base44.entities.Order.update(order.id, { reminders_sent }),

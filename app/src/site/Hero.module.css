@@ -88,3 +88,9 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* A real studio with no demo quote of its own yet: one column, the copy carries the page. */
+.solo {
+  grid-template-columns: minmax(0, 40rem);
+  padding-block: clamp(2.5rem, 7vw, 6rem) var(--space-7);
+}

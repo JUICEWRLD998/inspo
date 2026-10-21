@@ -23,6 +23,8 @@ function useLoad(fn) {
 
 export const useRateCard = () => useLoad(async () => (await base44.entities.RateCard.list())[0] ?? null);
 
+export const useMaker = () => useLoad(async () => (await base44.entities.Maker.list())[0] ?? null);
+
 export const useStats = () =>
   useLoad(async () => {
     const res = await base44.functions.invoke("publicStats", {});

@@ -1,22 +1,25 @@
+import { useProfile } from "./StudioProfile";
 import styles from "./HowItWorks.module.css";
 
-const STEPS = [
+const steps = (baker, possessive) => [
   {
     title: "Send a photo",
     text: "Send the cake you want to the studio on WhatsApp. A picture from Instagram, Pinterest or your phone all work. A clear shot of the whole cake is best.",
   },
   {
     title: "Get a price from her list",
-    text: "The photo is read for size, finish and decorations, and priced from Aminat's own list below. Anything her list does not cover is flagged, not guessed.",
+    text: `The photo is read for size, finish and decorations, and priced from ${possessive} own list below. Anything her list does not cover is flagged, not guessed.`,
   },
   {
-    title: "Aminat confirms",
-    text: "She checks the flagged parts, changes anything that needs it, and approves. You pay the deposit to book your date. Nothing is final before she says so.",
+    title: `${baker} confirms`,
+    text: "The baker checks the flagged parts, changes anything that needs it, and approves. You pay the deposit to book your date. Nothing is final before she says so.",
   },
 ];
 
 // Three steps, and it really is a sequence.
 export default function HowItWorks() {
+  const { baker, possessive } = useProfile();
+  const STEPS = steps(baker, possessive);
   return (
     <section id="how" className={styles.section} aria-labelledby="how-title">
       <h2 id="how-title">How it works</h2>

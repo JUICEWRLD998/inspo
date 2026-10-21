@@ -1,17 +1,19 @@
 import { useMemo } from "react";
 import { describeRateCard } from "../lib/describeRates";
 import { useRateCard } from "./data";
+import { useProfile } from "./StudioProfile";
 import styles from "./Faq.module.css";
 
 // The answers that quote numbers (deposit, notice, delivery areas) read them from the live price list.
 export default function Faq() {
   const { data: card } = useRateCard();
-  const d = useMemo(() => (card ? describeRateCard(card) : null), [card]);
+  const { baker, possessive } = useProfile();
+  const d = useMemo(() => (card ? describeRateCard(card, { baker }) : null), [card, baker]);
 
   const items = [
     {
       q: "Is the price in the chat final?",
-      a: "No. It is a price worked out from your photo and Aminat's list. She checks it, changes anything that needs it, and approves it. Until she does, nothing is final.",
+      a: `No. It is a price worked out from your photo and ${possessive} list. ${baker} checks it, changes anything that needs it, and approves it. Until then, nothing is final.`,
     },
     d?.depositPercent != null && {
       q: "How much is the deposit?",
@@ -19,11 +21,11 @@ export default function Faq() {
     },
     d?.noticeDays != null && {
       q: "How much notice do you need?",
-      a: `${d.noticeDays} days. If your date is sooner, Aminat has to check she has room first${d.rush ? `, and a rush charge applies: ${d.rush.charAt(0).toLowerCase()}${d.rush.slice(1)}` : "."}`,
+      a: `${d.noticeDays} days. If your date is sooner, ${baker} has to check there is room first${d.rush ? `, and a rush charge applies: ${d.rush.charAt(0).toLowerCase()}${d.rush.slice(1)}` : "."}`,
     },
     {
       q: "What if my cake has something that is not on the price list?",
-      a: "It gets flagged for Aminat, not guessed. A size or a decoration the list does not name is priced by her, and you will see that in the quote.",
+      a: `It gets flagged for ${baker}, not guessed. A size or a decoration the list does not name is priced by ${baker}, and you will see that in the quote.`,
     },
     d?.delivery?.length > 0 && {
       q: "Do you deliver?",

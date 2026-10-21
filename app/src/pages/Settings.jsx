@@ -12,7 +12,7 @@ const FIELDS = [
 ];
 
 export default function Settings() {
-  const { maker, user, reload } = useStudio();
+  const { maker, rateCard, user, reload } = useStudio();
   const [form, setForm] = useState(null);
   const [status, setStatus] = useState({ busy: false, error: "", saved: false });
 
@@ -40,6 +40,19 @@ export default function Settings() {
       setStatus({ busy: false, error: "", saved: true });
     } catch (err) {
       setStatus({ busy: false, saved: false, error: `Could not save: ${err.message ?? err}` });
+    }
+  }
+
+  async function markReal() {
+    if (!window.confirm("Mark this studio as real? Check that the price list and details are the maker's own first.")) return;
+    setStatus({ busy: true, error: "", saved: false });
+    try {
+      await studioApi.updateMaker(maker.id, { data_origin: "real" });
+      if (rateCard) await studioApi.updateRateCard(rateCard.id, { data_origin: "real" });
+      await reload();
+      setStatus({ busy: false, error: "", saved: true });
+    } catch (err) {
+      setStatus({ busy: false, saved: false, error: `Could not switch: ${err.message ?? err}` });
     }
   }
 
@@ -74,6 +87,17 @@ export default function Settings() {
           <span role="status" className={styles.saved}>{status.saved ? "Saved" : ""}</span>
         </div>
       </form>
+
+      {maker.data_origin === "sample" && (
+        <section className={styles.account} aria-label="Go live">
+          <h2>Go live</h2>
+          <p>
+            Once the business name, your name, the price list and the payment note above are the real maker's, mark the studio as real. The
+            public page then drops the sample notices and the sample demo quote, and the numbers count real quotes only.
+          </p>
+          <Button type="button" variant="quiet" busy={status.busy} onClick={markReal}>This studio is real</Button>
+        </section>
+      )}
 
       <section className={styles.account} aria-label="Account">
         <h2>Account</h2>

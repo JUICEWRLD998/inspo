@@ -122,6 +122,19 @@ export default function QuoteDetail({ quote: initial, customer, onChanged }) {
     }
   }
 
+  async function toggleTest() {
+    const next = !quote.is_test;
+    setError("");
+    setQuote({ ...quote, is_test: next });
+    try {
+      await studioApi.setQuoteTest(quote.id, next);
+      onChanged?.();
+    } catch (e) {
+      setQuote((q) => ({ ...q, is_test: !next }));
+      setError(`Could not change that: ${e.message ?? e}`);
+    }
+  }
+
   async function copy() {
     try {
       await navigator.clipboard.writeText(message);
@@ -166,6 +179,11 @@ export default function QuoteDetail({ quote: initial, customer, onChanged }) {
             {quote.status === "pending_approval" ? "Waiting for you" : quote.status === "sent" ? "Approved" : quote.status}
           </Badge>
         </header>
+
+        <label className={styles.testToggle}>
+          <input type="checkbox" checked={!!quote.is_test} onChange={toggleTest} />
+          <span>This is a test, don't count it in the numbers</span>
+        </label>
 
         {engine.checked && !engine.matches && (
           <p role="alert" className={styles.warn}>

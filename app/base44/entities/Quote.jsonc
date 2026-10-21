@@ -30,6 +30,7 @@
     "flavour": { "type": ["string", "null"], "description": "Flavour key as priced" },
     "delivery": { "type": ["string", "boolean", "null"], "description": "Delivery zone key, or false/null for pickup" },
     "edit_log": { "type": "array", "items": { "type": "object" }, "description": "Maker edits before approval" },
+    "is_test": { "type": "boolean", "default": false, "description": "Maker-marked test quote. Excluded from every public number and from eval/live.json" },
     "answered_at": { "type": "string", "format": "date-time" },
     "approved_at": { "type": "string", "format": "date-time" }
   },

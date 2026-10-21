@@ -1,3 +1,4 @@
+import { useProfile } from "./StudioProfile";
 import { useMemo } from "react";
 import { describeRateCard } from "../lib/describeRates";
 import { useRateCard } from "./data";
@@ -31,18 +32,20 @@ const Item = ({ name, price, per }) => (
 
 export default function Prices() {
   const { status, data: card, retry } = useRateCard();
-  const d = useMemo(() => (card ? describeRateCard(card) : null), [card]);
+  const { baker } = useProfile();
+  const d = useMemo(() => (card ? describeRateCard(card, { baker }) : null), [card, baker]);
   return <PricesView status={status} d={d} retry={retry} />;
 }
 
 // The view alone, so it can be rendered with any data (the break harness does).
 export function PricesView({ status, d, retry }) {
+  const { baker, sample } = useProfile();
 
   return (
     <section id="prices" className={styles.section} aria-labelledby="prices-title">
       <h2 id="prices-title">Prices</h2>
       <p className={styles.intro}>
-        Every quote is worked out from this list, nothing else. These are sample prices for the sample studio.
+        Every quote is worked out from this list, nothing else.{sample && " These are sample prices for the sample studio."}
       </p>
 
       {status === "loading" && !d && <Skeleton />}
@@ -72,7 +75,7 @@ export function PricesView({ status, d, retry }) {
               </Group>
             )}
             {d.decorations.length > 0 && (
-              <Group title="Decorations" note="A range means Aminat picks the amount once she has seen the design.">
+              <Group title="Decorations" note={`A range means ${baker} picks the amount once the design has been seen.`}>
                 {d.decorations.map((x) => <Item key={x.name} {...x} />)}
               </Group>
             )}

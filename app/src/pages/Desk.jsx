@@ -32,7 +32,7 @@ export default function Desk() {
       <Link to={`/desk/${q.id}`} className={`${styles.row} ${q.id === id ? styles.current : ""}`}>
         {q.image_url ? <img className={styles.thumb} src={q.image_url} alt="" loading="lazy" /> : <span className={styles.thumb} aria-hidden="true" />}
         <span className={styles.rowText}>
-          <strong>{customers[q.customer_id]?.name ?? (customers[q.customer_id] ? `+${customers[q.customer_id].whatsapp_id}` : "Customer not linked")}</strong>
+          <strong>{q.is_test && <Badge tone="neutral">Test</Badge>} {customers[q.customer_id]?.name ?? (customers[q.customer_id] ? `+${customers[q.customer_id].whatsapp_id}` : "Customer not linked")}</strong>
           <span className={styles.sub}>For {when(q.event_date)} · {display(q.total ?? 0, q.currency ?? "NGN")}</span>
         </span>
         {q.status === "pending_approval" ? (

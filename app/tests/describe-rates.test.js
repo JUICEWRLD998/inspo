@@ -5,7 +5,7 @@ import { describeRateCard } from "../src/lib/describeRates.js";
 const card = JSON.parse(readFileSync(new URL("../../data/sample/rate-card.json", import.meta.url)));
 
 describe("describeRateCard", () => {
-  const d = describeRateCard(card);
+  const d = describeRateCard(card, { baker: "Aminat" });
 
   it("lists sizes in inches, smallest first, with display prices", () => {
     expect(d.sizes.map((s) => [s.inches, s.price])).toEqual([[6, "₦25,000"], [7, "₦32,000"], [8, "₦42,000"], [9, "₦55,000"], [10, "₦70,000"]]);
@@ -29,7 +29,7 @@ describe("describeRateCard", () => {
   });
 
   it("states the rush rule, delivery areas, deposit and notice", () => {
-    expect(d.rush).toBe("+25% when the event is within 1 day. Aminat checks she has room first.");
+    expect(d.rush).toBe("+25% when the event is within 1 day. Aminat checks there is room first.");
     expect(d.delivery).toEqual([{ area: "Nearby", price: "from ₦3,000" }, { area: "Mainland", price: "from ₦5,000" }, { area: "Island", price: "from ₦8,000" }]);
     expect(d.depositPercent).toBe(70);
     expect(d.noticeDays).toBe(2);
